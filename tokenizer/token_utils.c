@@ -6,11 +6,11 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 14:52:39 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/05/13 11:01:34 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/06/14 17:33:39 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenizer.h"
+#include "minishell.h"
 
 t_token	*new_token(char *token, t_token_type type)
 {
@@ -27,12 +27,12 @@ void	add_token(t_token **list, t_token *new)
 {
 	t_token	*head;
 
-	head = *list;
-	if (!head)
+	if (!*list)
 	{
 		*list = new;
 		return ;
 	}
+	head = *list;
 	while (head->next)
 		head = head->next;
 	head->next = new;

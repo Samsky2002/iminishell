@@ -1,28 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_node.c                                         :+:      :+:    :+:   */
+/*   arg_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/24 11:46:02 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/06/14 15:01:25 by oakerkao         ###   ########.fr       */
+/*   Created: 2023/06/14 16:21:12 by oakerkao          #+#    #+#             */
+/*   Updated: 2023/06/14 16:43:15 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+# include "minishell.h"
 
-void	add_node(t_env *new)
+t_arg	*new_arg(char *arg)
 {
-	t_env	*list;
+	t_arg	*new;
 
-	if (g_minishell.list == NULL)
+	new = malloc(sizeof(t_arg));
+	new->arg = arg;
+	new->next = NULL;
+	return (new);
+}
+
+void	add_arg(t_arg **list, t_arg *new)
+{
+	t_arg	*head;
+
+	if (!*list)
 	{
-		g_minishell.list = new;
+		*list = new;
 		return ;	
 	}
-	list = g_minishell.list;
-	while (list->next)
-		list = list->next;
-	list->next = new;
+	head = *list;
+	while (head->next)
+		head = head->next;
+	head->next = new;
 }

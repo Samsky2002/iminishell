@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 09:16:20 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/05/14 18:30:10 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/06/14 15:03:33 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	export_list()
 {
-	t_env	*list = g_manager.list;
+	t_env	*list = g_minishell.list;
 	while (list)
 	{
 		if (list->value != NULL)

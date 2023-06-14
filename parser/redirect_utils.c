@@ -1,34 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tokening.c                                         :+:      :+:    :+:   */
+/*   redirect_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 18:40:22 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/05/13 12:16:17 by oakerkao         ###   ########.fr       */
+/*   Created: 2023/06/14 17:19:45 by oakerkao          #+#    #+#             */
+/*   Updated: 2023/06/14 17:34:20 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "tokenizer.h"
+# include "minishell.h"
 
-/*t_token	*tokening(t_token **head, t_tokening_type type)
+t_redirect	*new_redirect(char *path, t_token_type type)
 {
-	t_token	*prev;
-	t_token	*next;
+	t_redirect	*new;
 
-	if (type == GET)
+	new = malloc(sizeof(t_redirect));
+	new->path = path;
+	new->type= type;
+	new->next = NULL;
+	return (new);
+}
+
+void	add_redirect(t_redirect **redirect, t_redirect *new)
+{
+	t_redirect	*head;
+
+	if (!*redirect)
 	{
-		prev = *head;
-		if (*head)
-			(*head) = (*head)->next;
-		return (prev);	
+		*redirect = new;
+		return ;	
 	}
-	else
-	{
-		if (*head)
-			next = (*head)->next;
-		return (next);
-	}
-	return (0);
-}*/
+	head = *redirect;
+	while (head->next)
+		head = head->next;
+	head->next = new;
+}

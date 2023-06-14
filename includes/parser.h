@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 15:14:49 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/05/13 11:50:52 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/06/14 17:35:20 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,20 @@
 
 # include "minishell.h"
 
-typedef enum
+/*typedef enum
 {
-	AST_PIPE,
-	AST_COMMAND,
-} t_type;
-
-typedef enum
-{
-	SIMPLE_CMD,
-	REDIRECT
-} t_command_type;
+	T_WORD,
+	T_PIPE,
+	T_HERE_DOC,
+	T_IN,
+	T_OUT,
+	T_APPEND,
+	T_NULL,
+	T_AND,
+	T_OR,
+	T_OPEN_PAR,
+	T_CLOSE_PAR,
+} t_token_type;*/
 
 typedef enum
 {
@@ -35,42 +38,38 @@ typedef enum
 	HERE_DOC
 } t_redirect_type;
 
-typedef struct s_ast
+typedef struct	s_arg
 {
-	t_type type;
-	void	*data;
-} t_ast;
+	char			*arg;
+	struct s_arg	*next;
+} t_arg;
 
-typedef struct s_pipe
+typedef struct	s_redirect
 {
-	t_ast *left_child;
-	t_ast *right_child;
-} t_pipe;
-
-typedef struct s_simple_cmd
-{
-	char	**args;
-} t_simple_cmd;
-
-typedef struct s_redirect
-{
-	t_redirect_type	type;
-	char	*file;
+	char				*path;
+	t_token_type		type;
+	struct s_redirect	*next;
 } t_redirect;
 
-typedef struct s_redirection
+typedef struct	s_node
 {
-	t_redirect				*redirect;
-	struct s_redirection	*s_redirection;
-} t_redirection;
+	t_arg			*args;
+	t_redirect		*redirect;
+	struct s_node	*next;
+} t_node;
 
-typedef struct s_command
-{
-	t_simple_cmd	*cmd;
-	t_redirection		*redirection;
-} t_command;
+void	parse(void);
 
+//arg
+t_arg	*new_arg(char *arg);
+void	add_arg(t_arg **list, t_arg *new);
 
-t_ast	*parse(void);
+//node
+t_node	*new_list(t_arg *args, t_redirect *redirect);
+void	add_list(t_node **list, t_node *new);
+
+//redirect
+t_redirect	*new_redirect(char *path, t_token_type type);
+void		add_redirect(t_redirect **redirect, t_redirect *new);
 
 # endif

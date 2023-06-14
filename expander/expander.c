@@ -6,13 +6,13 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 18:04:54 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/05/14 17:22:32 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/06/13 19:44:10 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
 
-char	*get_var(char *str)
+/*char	*get_var(char *str)
 {
 	int	i;
 	char *result;
@@ -104,4 +104,4 @@ char	**expander(char *str)
 	}
 	splited = put_twod_array(lst);
 	return (splited);
-}
+}*/

@@ -6,54 +6,44 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 15:14:26 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/05/13 13:22:09 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/06/14 18:26:53 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "parser.h"
+# include "minishell.h"
 
-/*t_simple_cmd	parse_simple_command()
+void	parse(void)
 {
-	t_simple_cmd	*simple_cmd;
-
-	simple_cmd = malloc(sizeof(t_simple_cmd));
-	return (simple_cmd);
-}
-
-t_command	*parse_command()
-{
-	t_commmand	*command;
-
-	command = malloc(sizeof(t_command));
-	command->cmd = parse_simple_command();
-	return (command);
-}
-
-t_pipe	*parse_pipe()
-{
-	t_pipe	*pipe;
-
-	pipe = malloc(sizeof(t_pipe));
-	pipe->left_child = parse_command();
-	pipe->right_child = parse();
-
-	return (pipe);
-}
-
-t_ast	*parse(void)
-{
-	t_ast	*tree;
 	t_token	*token;
-	
-	tree = NULL;
-	token = get_token(T_GET);
-	if (token->type == T_PIPE)
-		printf("syntax error\n");
-	parse_command();
-	token = get_token(t_GET);
-	tree = malloc(sizeof(t_ast));
-	tree->type = AST_PIPE;
-	tree->data = pipe;
-	parse_pipe();
-	return (tree);
-}*/
+	t_node	*node;
+	t_arg	*args;
+	t_redirect	*redirect;
+	t_token_type	type;
+
+	node = NULL;
+	args = NULL;
+	redirect = NULL;
+	token = g_minishell.token;
+	while (token)
+	{
+		while (token && token->type != T_PIPE)
+		{
+			if (token->type == T_WORD)
+				add_arg(&args, new_arg(token->token));
+			else if (token->type == T_IN | token->type == T_OUT || token->type == T_HERE_DOC || token->type == T_APPEND)
+			{
+				type = token->type;
+				if (token->next)
+					token = token->next;
+				add_redirect(&redirect, new_redirect(token->token, type));
+			}
+			token = token->next;
+		}
+		add_list(&node, new_list(args, redirect));
+		args = NULL;
+		redirect= NULL;
+		if (token)
+			token = token->next;
+	}
+	g_minishell.node = node;
+}

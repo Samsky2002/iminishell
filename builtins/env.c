@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 09:29:54 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/05/14 18:27:30 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/06/14 15:03:16 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	env(void)
 {
 	t_env	*list;
 
-	list = g_manager.list;
+	list = g_minishell.list;
 	while (list)
 	{
 		if (list->value != NULL)
