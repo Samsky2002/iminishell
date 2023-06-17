@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 15:14:49 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/06/14 17:35:20 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/06/15 12:59:30 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,8 @@ void	add_list(t_node **list, t_node *new);
 //redirect
 t_redirect	*new_redirect(char *path, t_token_type type);
 void		add_redirect(t_redirect **redirect, t_redirect *new);
+
+//syntax_error
+void	syntax_error(void);
 
 # endif

@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:41:56 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/04/24 19:46:48 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/06/17 21:37:59 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,18 @@ int	check_exit_arg(char *str)
 
 void	ft_exit(char **args)
 {
+	int	exit_value;
+
 	if (args[1])
 	{
+		if (check_exit_arg(args[1]) && !args[2])
+		{
+			exit_value = check_exit_arg(args[1]);
+			exit(exit_value);
+		}
 		if (args[2])
 		{
-			printf("error\n");
 			return ;
 		}
-		check_exit_arg(args[1]);
 	}
-	exit(0);
 }

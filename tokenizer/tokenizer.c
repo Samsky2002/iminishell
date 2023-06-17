@@ -6,37 +6,11 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 12:53:42 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/06/14 17:32:50 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/06/15 15:55:01 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	*char_join(char *str, char c)
-{
-	char	*result;
-	int		len;
-	int		i;
-
-	i = 0;
-	if (!str)
-	{
-		result = malloc(2);	
-		result[0] = c;
-		result[1] = '\0';
-		return (result);
-	}
-	len = ft_strlen(str);
-	result = malloc(len + 2);
-	while (str[i])
-	{
-		result[i] = str[i];
-		i++;
-	}
-	result[i] = c;
-	result[i + 1] = '\0';
-	return (result);
-}
 
 int	word_token(t_token **token, char *line)
 {
@@ -56,6 +30,8 @@ int	word_token(t_token **token, char *line)
 		result = char_join(result, line[i]);
 		i++;
 	}
+	if (quotes)
+		g_minishell.s_error = 1;
 	add_token(token, new_token(result, T_WORD));
 	return (i);
 }
@@ -105,6 +81,7 @@ void	tokenizer(char *line)
 	t_token	*token;
 
 	token = NULL;
+	g_minishell.s_error = 0;
 	while (line && *line)
 	{
 		if (ft_strncmp(line, "|", 1) == 0)
@@ -122,6 +99,5 @@ void	tokenizer(char *line)
 		else
 			line += word_token(&token, line);
 	}
-	//add_token(&token, new_token(NULL, T_NULL));
 	g_minishell.token = token;
 }

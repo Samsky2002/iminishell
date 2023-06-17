@@ -6,20 +6,22 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 09:16:20 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/06/14 15:03:33 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/06/17 21:40:18 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-void	export_list()
+void	export_list(void)
 {
-	t_env	*list = g_minishell.list;
+	t_env	*list;
+
+	list = g_minishell.list;
 	while (list)
 	{
-		if (list->value != NULL)
-			printf("declare -x %s=\"%s\"\n", list->key, list->value);	
-		else
+		if (list->value != NULL && (ft_strcmp(list->key, "_") != 0))
+			printf("declare -x %s=\"%s\"\n", list->key, list->value);
+		else if (list->value == NULL && (ft_strcmp(list->key, "_") != 0))
 			printf("declare -x %s\n", list->key);
 		list = list->next;
 	}
@@ -33,7 +35,6 @@ int	check_key(char *str)
 	if ((str[0] < 'a' || str[0] > 'z') && (str[0] < 'A' || str[0] > 'Z') \
 			&& str[0] != '_')
 	{
-		printf("error\n");
 		return (0);
 	}
 	while (str[i] && str[i] != '=')
@@ -52,19 +53,30 @@ int	check_key(char *str)
 void	export(char **argv)
 {
 	int		i;
+	t_env	*tmp;
 
 	i = 1;
 	if (!argv[i])
+	{
 		export_list();
+		return ;
+	}
 	while (argv[i])
 	{
-		if ((check_key(argv[i]) == 0) || get_node(get_key(argv[i])))
+		if (check_key(argv[i]) == 0)
 		{
 			printf("error\n");
-			return ;
+		}
+		else if (get_node(get_key(argv[i])))
+		{
+			tmp = get_node(get_key(argv[i]));
+			if (get_value(argv[i]))
+				tmp->value = get_value(argv[i]);
 		}
 		else
+		{
 			add_node(new_node(get_key(argv[i]), get_value(argv[i])));
+		}
 		i++;
 	}
 }

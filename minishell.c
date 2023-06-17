@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 18:57:54 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/06/14 18:28:40 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/06/17 19:13:11 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,22 @@ void	find_type(int i)
 	else if (i == 6)
 		printf("-----%s-----\n", "T_NULL");
 }
+
+void	expanded()
+{
+	t_node	*node;
+
+	node = g_minishell.node;
+	while (node)
+	{
+		while (node->args)
+		{
+			expander(node->args->arg);
+			node->args = node->args->next;
+		}
+		node = node->next;	
+	}
+}
 int main(int argc, char *argv[], char *enviro[])
 {
 	char	*red;
@@ -66,9 +82,17 @@ int main(int argc, char *argv[], char *enviro[])
 	while (1)
 	{
 		red = readline("> ");
+		if (!red || !*red)
+			continue;
 		tokenizer(red);
-		parse();
-		print_list();
+		syntax_error();
+		if (!g_minishell.s_error)
+		{
+			parse();
+			//print_list();
+		}
+		//expanded();
+		exec();
 		add_history(red);
 	}
 }

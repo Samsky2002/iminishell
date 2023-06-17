@@ -2,7 +2,7 @@ CC = cc
 
 NAME = minishell
 
-CFLAGS = -fsanitize=address #-Wall -Werror -Wextra
+CFLAGS = -fsanitize=address -g #-Wall -Werror -Wextra
 
 ENV = env/add_node.c \
 	  env/get_env_list.c \
@@ -27,16 +27,25 @@ BUILTINS = builtins/echo.c \
 PARSER = parser/parser.c \
 		 parser/arg_utils.c \
 		 parser/node_utils.c \
-		 parser/redirect_utils.c
+		 parser/redirect_utils.c \
+		 parser/syntax_error.c
 
 EXPANDER = expander/expander.c
+
+EXEC = exec/exec.c \
+	   exec/exec_utils.c \
+	   exec/exec_redirect_utils.c \
+	   exec/exec_redirect.c \
+	   exec/exec_child.c
 
 CFILES = $(ENV) \
 		 $(TOKENIZER) \
 		 $(BUILTINS) \
 		 $(PARSER) \
 		 $(EXPANDER) \
+		 $(EXEC) \
 		 minishell.c \
+		 minishell_utils.c
 
 LIBFT = libft/libft.a
 

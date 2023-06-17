@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 15:45:28 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/05/12 16:27:38 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/06/16 19:03:58 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ int		ft_atoi(const char *str);
 void	*ft_calloc(size_t count, size_t size);
 char	*ft_strdup(const char *s1);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strjoin(int size, ...);
+char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strtrim(char const *s1, char const *set);
-char	**ft_split(char *str, char c);
+char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
@@ -70,6 +70,6 @@ void	ft_putnbr_fd(int n, int fd);
 char	*get_next_line(int fd);
 
 //utils
-char	**put_twod_array(t_list	*lst);
+//char	**put_twod_array(t_list	*lst);
 
 #endif

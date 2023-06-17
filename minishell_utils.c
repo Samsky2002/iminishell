@@ -1,32 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_key.c                                          :+:      :+:    :+:   */
+/*   minishell_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/24 10:47:28 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/06/17 19:53:53 by oakerkao         ###   ########.fr       */
+/*   Created: 2023/06/15 15:54:33 by oakerkao          #+#    #+#             */
+/*   Updated: 2023/06/16 16:57:41 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+# include "minishell.h"
 
-char	*get_key(char *str)
+char	*char_join(char *str, char c)
 {
+	char	*result;
 	int		len;
-	char	*new;
+	int		i;
 
+	i = 0;
 	if (!str)
-		return (0);
-	if (ft_strchr(str, '=') == NULL)
-		len = ft_strlen(str) + 1;
-	else
 	{
-		new = ft_strchr(str, '=');	
-		len = new - str + 1;
+		result = malloc(2);
+		result[0] = c;
+		result[1] = '\0';
+		return (result);
 	}
-	new = malloc(len * sizeof(char));
-	ft_strlcpy(new, str, len);
-	return (new);
+	if (c == '\0')
+		return (str);
+	len = ft_strlen(str);
+	result = malloc(len + 2);
+	while (str[i])
+	{
+		result[i] = str[i];
+		i++;
+	}
+	result[i] = c;
+	result[i + 1] = '\0';
+	return (result);
 }

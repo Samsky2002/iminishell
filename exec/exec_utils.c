@@ -1,32 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_key.c                                          :+:      :+:    :+:   */
+/*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/24 10:47:28 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/06/17 19:53:53 by oakerkao         ###   ########.fr       */
+/*   Created: 2023/06/17 11:07:47 by oakerkao          #+#    #+#             */
+/*   Updated: 2023/06/17 11:15:05 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+# include "minishell.h"
 
-char	*get_key(char *str)
+t_exec	*new_exec(char **arr, t_exec_redirect *redirect)
 {
-	int		len;
-	char	*new;
+	t_exec	*new;
 
-	if (!str)
-		return (0);
-	if (ft_strchr(str, '=') == NULL)
-		len = ft_strlen(str) + 1;
-	else
-	{
-		new = ft_strchr(str, '=');	
-		len = new - str + 1;
-	}
-	new = malloc(len * sizeof(char));
-	ft_strlcpy(new, str, len);
+	new = malloc(sizeof(t_exec));
+	new->args = arr;
+	new->redirect = redirect;
+	new->next = NULL;
 	return (new);
+}
+
+void	add_exec(t_exec **exec, t_exec *new)
+{
+	t_exec	*head;
+
+	if (!*exec)
+	{
+		*exec = new;
+		return ;	
+	}
+	head = *exec;
+	while (head->next)
+		head = head->next;
+	head->next = new;
 }
