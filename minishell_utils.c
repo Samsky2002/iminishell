@@ -37,5 +37,6 @@ char	*char_join(char *str, char c)
 	}
 	result[i] = c;
 	result[i + 1] = '\0';
+	free(str);
 	return (result);
 }

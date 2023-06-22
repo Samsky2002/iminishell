@@ -2,7 +2,7 @@ CC = cc
 
 NAME = minishell
 
-CFLAGS = -fsanitize=address -g #-Wall -Werror -Wextra
+CFLAGS = #-fsanitize=address -g #-Wall -Werror -Wextra
 
 ENV = env/add_node.c \
 	  env/get_env_list.c \
@@ -57,7 +57,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJECTS)
 	make -C libft
-	$(CC) -lreadline $(INCLUDES) $(CFLAGS) $(OBJECTS) $(LIBFT) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJECTS) -Llibft -lft -lreadline -o $(NAME)
 
 %.o : %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@

@@ -76,6 +76,22 @@ int	special_token(t_token **token, t_token_type type)
 	return (0);
 }
 
+void	free_token_list()
+{
+	t_token	*token;
+
+	token = g_minishell.token;
+	if (!g_minishell.token)
+		return ;
+	while (token)
+	{
+		token = g_minishell.token->next;
+		free(g_minishell.token->token);
+		free(g_minishell.token);
+		g_minishell.token = token;
+	}
+}
+
 void	tokenizer(char *line)
 {
 	t_token	*token;

@@ -72,7 +72,7 @@ char	*get_var_name(char *str)
 		if (str[0] == '$')
 			return (0);
 		result = malloc(2);
-		strlcpy(result, str, 2);
+		ft_strlcpy(result, str, 2);
 		return (result);
 	}
 	while (str[i] && ((str[i] >= '0' && str[i] != '9') || \
@@ -81,7 +81,7 @@ char	*get_var_name(char *str)
 				str[i] == '_'))
 		i++;	
 	result = malloc(i + 1);
-	strlcpy(result, str, i + 1);
+	ft_strlcpy(result, str, i + 1);
 	return (result);
 }
 

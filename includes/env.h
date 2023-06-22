@@ -33,5 +33,6 @@ char	*get_key(char *str);
 char	*get_value(char *str);
 void	get_env_list(char **enviro);
 t_env	*get_node(char *key);
+void	free_env_list();
 
 #endif

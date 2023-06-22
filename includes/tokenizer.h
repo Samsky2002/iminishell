@@ -42,6 +42,7 @@ void	tokenizer(char *line);
 /* token_utils */
 t_token	*new_token(char *token, t_token_type type);
 void	add_token(t_token **list, t_token *new);
+void	free_token_list();
 
 
 #endif

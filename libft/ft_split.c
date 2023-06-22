@@ -78,13 +78,11 @@ char	**ft_split(char const *s, char c)
 	char	**str;
 	int		i;
 	int		j;
-	int		k;
 	int		count;
 
 	count = count_word(s, c);
 	i = 0;
 	j = 0;
-	k = 0;
 	str = malloc((count_word(s, c) + 1) * sizeof(char *));
 	if (!str)
 		return (0);

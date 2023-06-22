@@ -26,3 +26,20 @@ void	add_node(t_env *new)
 		list = list->next;
 	list->next = new;
 }
+
+void	free_env_list()
+{
+	t_env	*list;
+
+	list = g_minishell.list;
+	if (!g_minishell.list)
+		return ;
+	while (list)
+	{
+		list = g_minishell.list->next;
+		free(g_minishell.list->key);
+		free(g_minishell.list->value);
+		free(g_minishell.list);
+		g_minishell.list = list;
+	}
+}

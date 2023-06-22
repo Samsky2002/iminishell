@@ -85,14 +85,18 @@ int main(int argc, char *argv[], char *enviro[])
 		if (!red || !*red)
 			continue;
 		tokenizer(red);
+		free_token_list();
+		free(red);
 		syntax_error();
-		if (!g_minishell.s_error)
+		/*if (!g_minishell.s_error)
 		{
 			parse();
 			//print_list();
 		}
 		//expanded();
 		exec();
-		add_history(red);
+		add_history(red);*/
+		free_env_list();
 	}
+	free_env_list();
 }
