@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokenizer.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: oakerkao <oakerkao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 12:53:52 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/02 11:19:45 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/03 09:58:21 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,5 @@ void	tokenizer(char *line);
 t_token	*new_token(char *token, t_token_type type);
 void	add_token(t_token **list, t_token *new);
 void	token_list_clear(t_token *token);
-
 
 #endif

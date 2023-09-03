@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: oakerkao <oakerkao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:41:01 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/02 18:53:12 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/03 09:57:48 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int		env_list_size(t_env *list);
 char	*get_key(char *str);
 char	*get_value(char *str);
 void	get_env_list(char **enviro);
-t_env	*get_node(char *key);
 void	env_list_clear(t_env *env);
 
 #endif

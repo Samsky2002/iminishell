@@ -57,7 +57,9 @@ all : $(NAME)
 
 $(NAME) : $(OBJECTS)
 	make -C libft
+
 	$(CC) $(INCLUDES) $(CFLAGS) $(OBJECTS) $(LIBFT) -o $(NAME) -lreadline
+
 
 %.o : %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@

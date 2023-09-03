@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: oakerkao <oakerkao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 18:57:54 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/02 19:44:35 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/03 09:59:30 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 int main(int argc, char *argv[], char *enviro[])
 {
@@ -27,6 +27,8 @@ int main(int argc, char *argv[], char *enviro[])
 		if (!*red)
 			continue ;
 		tokenizer(red);
+		free_token_list();
+		free(red);
 		syntax_error();
 		if (!g_minishell.s_error)
 		{
