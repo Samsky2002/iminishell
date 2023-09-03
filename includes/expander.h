@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   expander.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/02 13:04:00 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/03 11:31:56 by oakerkao         ###   ########.fr       */
+/*   Created: 2023/09/03 10:55:57 by oakerkao          #+#    #+#             */
+/*   Updated: 2023/09/03 14:52:47 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+# ifndef EXPANDER_H
+# define EXPANDER_H
 
-int	ft_strcmp(const char *s1, const char *s2)
-{
-	size_t	s1_len;
-	size_t	s2_len;
+void	expanded(void);
+char	*get_var_name(char *str);
+int		has_space(char *str, int type);
+int		put_twod_size(t_list *lst);
+char	**put_twod_array(t_list **lst);
+void	expander_init(t_list **lst, char *quotes, int *i);
 
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	if (s1_len > s2_len)
-		return (ft_strncmp(s1, s2, s1_len));
-	else if (s1_len < s2_len)
-		return (ft_strncmp(s1, s2, s2_len));
-	return (ft_strncmp(s1, s2, s1_len));
-}
+# endif

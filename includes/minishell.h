@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 07:49:04 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/02 14:11:12 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/03 10:56:47 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include "parser.h"
 # include "exec.h"
 # include "mini_errors.h"
+# include "expander.h"
 
 
 typedef struct s_env	t_env;

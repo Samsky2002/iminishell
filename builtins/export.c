@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 09:16:20 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/06/17 21:40:18 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/03 15:27:05 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,10 +73,10 @@ void	export(char **argv)
 			if (get_value(argv[i]))
 				tmp->value = get_value(argv[i]);
 		}
-		else
+		/*else
 		{
 			add_node(new_node(get_key(argv[i]), get_value(argv[i])));
-		}
+		}*/
 		i++;
 	}
 }

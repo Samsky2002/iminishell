@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:41:01 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/03 09:57:48 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/03 11:11:32 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ char	*get_key(char *str);
 char	*get_value(char *str);
 void	get_env_list(char **enviro);
 void	env_list_clear(t_env *env);
+t_env	*get_node(char *key);
 
 #endif

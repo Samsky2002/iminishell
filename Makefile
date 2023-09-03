@@ -41,11 +41,11 @@ CFILES = $(ENV) \
 		 $(TOKENIZER) \
 		 $(PARSER) \
 		 $(EXPANDER) \
+		 $(EXEC) \
+		 $(BUILTINS) \
 		 $(ERROR) \
 		 minishell.c \
 		 minishell_utils.c
-		 #$(BUILTINS) \
-		 #$(EXEC) \
 
 LIBFT = libft/libft.a
 

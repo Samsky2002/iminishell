@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 11:07:47 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/06/17 11:15:05 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/03 16:07:48 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,37 @@ void	add_exec(t_exec **exec, t_exec *new)
 	while (head->next)
 		head = head->next;
 	head->next = new;
+}
+
+void	print_exec()
+{
+	t_exec	*exec;
+
+	exec = g_minishell.exec;
+	while (exec)
+	{
+		printf("<<<<<<<<<<<<<NODE>>>>>>>>>>>>>>>>\n");
+		printf("-----------ARGS------------\n");
+		while (*exec->args)	
+		{
+			printf("%s\n", *exec->args);	
+			exec->args++;
+		}
+		printf("-----------ARGS------------\n");
+		printf("-----------REDIRECT------------\n");
+		while (exec->redirect)
+		{
+			while (*exec->redirect->list)
+			{
+				printf("TYPE---->  ");	
+				printf("%s\n", *exec->redirect->list);
+				find_type(exec->redirect->type);
+				exec->redirect->list++;
+			}
+			exec->redirect = exec->redirect->next;
+		}
+		exec = exec->next;
+		printf("-----------REDIRECT------------\n");
+		printf("<<<<<<<<<<<<<<END_NODE>>>>>>>>>>>>>\n\n\n");
+	}
 }

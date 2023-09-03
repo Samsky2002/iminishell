@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:54:33 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/02 15:05:28 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/03 10:58:07 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,13 @@ char	*char_join(char *str, char c)
 	int		i;
 
 	i = 0;
-	if (!str)
+	if (!str && c == '\0')
+	{
+		result = malloc(1);
+		result[0] = '\0';
+		return (result);
+	}
+	else if (!str)
 	{
 		result = malloc(2);
 		result[0] = c;
@@ -86,21 +92,6 @@ void	find_type(int i)
 		printf("-----%s-----\n", "T_NULL");
 }
 
-void	expanded()
-{
-	t_node	*node;
-
-	node = g_minishell.node;
-	while (node)
-	{
-		while (node->args)
-		{
-			expander(node->args->arg);
-			node->args = node->args->next;
-		}
-		node = node->next;
-	}
-}
 
 void	print_tokens()
 {
