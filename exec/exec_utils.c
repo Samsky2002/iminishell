@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 11:07:47 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/03 16:07:48 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/03 17:01:38 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,38 @@ void	print_exec()
 		exec = exec->next;
 		printf("-----------REDIRECT------------\n");
 		printf("<<<<<<<<<<<<<<END_NODE>>>>>>>>>>>>>\n\n\n");
+	}
+}
+
+void	exec_redirect_list_clear(t_exec_redirect *redirect)
+{
+	t_exec_redirect	*head;
+
+	if (!redirect)
+		return ;
+	head = redirect;
+	while (head)
+	{
+		head = redirect->next;
+		free_twod_array(redirect->list);
+		free(redirect);
+		redirect = head;
+	}
+}
+
+void	exec_list_clear(t_exec *exec)
+{
+	t_exec	*head;
+
+	if (!exec)
+		return ;
+	head = exec;
+	while (head)
+	{
+		head = exec->next;
+		free_twod_array(exec->args);
+		exec_redirect_list_clear(exec->redirect);
+		free(exec);
+		exec = head;
 	}
 }

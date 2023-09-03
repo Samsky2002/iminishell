@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 07:49:04 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/03 10:56:47 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/03 16:41:20 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ char	*char_join(char *str, char c);
 char	**put_twod_array(t_list **lst);
 void	print_tokens();
 void	print_list();
+void	free_twod_array(char **arr);
 
 # endif

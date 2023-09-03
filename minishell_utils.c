@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:54:33 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/03 10:58:07 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/03 16:40:38 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,19 @@ char	*char_join(char *str, char c)
 	result[i + 1] = '\0';
 	free(str);
 	return (result);
+}
+
+void	free_twod_array(char **arr)
+{
+	char	**tmp;
+
+	tmp = arr;
+	while (*tmp)
+	{
+		free(*tmp);
+		tmp++;
+	}
+	free(arr);
 }
 
 void	print_list()

@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 10:57:28 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/03 16:11:11 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/03 19:11:34 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,27 @@ char	**node_args(t_node *node)
 	char	**expanded;
 	char	**arr_arg;
 	t_list	*lst;
+	int		i;
+	t_arg	*tmp_args;
 
+	i = 0;
 	lst = NULL;
+	tmp_args = node->args;
 	while (node->args)
 	{
 		expanded = expander(node->args->arg);
-		while (*expanded)
+		i = 0;
+		while (expanded[i])
 		{
-			ft_lstadd_back(&lst, ft_lstnew(*expanded));
-			expanded++;
+			ft_lstadd_back(&lst, ft_lstnew(expanded[i]));
+			i++;
 		}
 		node->args = node->args->next;
+		free (expanded);
 	}
+	node->args = tmp_args;
 	arr_arg = put_twod_array(&lst);
+	ft_lstclear(&lst, free);
 	return (arr_arg);
 }
 
@@ -39,18 +47,22 @@ t_exec_redirect	*node_redirect(t_node *node)
 	char			**expanded;
 	t_list			*lst;
 	t_exec_redirect	*redirect;
+	int				i;
 
 	redirect = NULL;
 	while (node->redirect)
 	{
 		lst = NULL;
 		expanded = expander(node->redirect->path);
-		while (*expanded)
+		i = 0;
+		while (expanded[i])
 		{
-			ft_lstadd_back(&lst, ft_lstnew(*expanded));
-			expanded++;
+			ft_lstadd_back(&lst, ft_lstnew(expanded[i]));
+			i++;
 		}
+		free (expanded);
 		arr_red = put_twod_array(&lst);
+		ft_lstclear(&lst, free);
 		add_exec_redirect(&redirect, \
 				new_exec_redirect(arr_red, node->redirect->type));
 		node->redirect = node->redirect->next;
@@ -68,6 +80,7 @@ void	exec_prep(void)
 	node = g_minishell.node;
 	redirect = NULL;
 	exec = NULL;
+
 	while (node)
 	{
 		arr_arg = node_args(node);
@@ -80,10 +93,9 @@ void	exec_prep(void)
 
 void	exec(void)
 {
-	t_context	ctx;
-	/*ctx.fd[0] = 0;
-	ctx.fd[1] = 1;*/
 	exec_prep();
-	print_exec();
-	//exec_child(&ctx);
+	exec_list_clear(g_minishell.exec);
 }
+
+// free expanded
+// make exec_clear function
