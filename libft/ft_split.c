@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 17:58:46 by oakerkao          #+#    #+#             */
-/*   Updated: 2022/10/31 15:58:41 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/02 09:52:25 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,11 @@ char	**ft_split(char const *s, char c)
 	char	**str;
 	int		i;
 	int		j;
-	int		k;
 	int		count;
 
 	count = count_word(s, c);
 	i = 0;
 	j = 0;
-	k = 0;
 	str = malloc((count_word(s, c) + 1) * sizeof(char *));
 	if (!str)
 		return (0);

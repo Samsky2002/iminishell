@@ -1,32 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_key.c                                          :+:      :+:    :+:   */
+/*   mini_errors.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/24 10:47:28 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/06/17 19:53:53 by oakerkao         ###   ########.fr       */
+/*   Created: 2023/09/02 13:00:28 by oakerkao          #+#    #+#             */
+/*   Updated: 2023/09/02 13:45:46 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+# ifndef MINI_ERRORS
+# define MINI_ERRORS
 
-char	*get_key(char *str)
+typedef enum
 {
-	int		len;
-	char	*new;
+	S_PIPE,
+	S_WORD,
+	S_REDIRECT
+} t_syntax_type;
 
-	if (!str)
-		return (0);
-	if (ft_strchr(str, '=') == NULL)
-		len = ft_strlen(str) + 1;
-	else
-	{
-		new = ft_strchr(str, '=');	
-		len = new - str + 1;
-	}
-	new = malloc(len * sizeof(char));
-	ft_strlcpy(new, str, len);
-	return (new);
-}
+// syntax_error
+void	syntax_error(void);
+
+#endif

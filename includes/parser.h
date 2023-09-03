@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 15:14:49 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/06/15 12:59:30 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/02 16:09:38 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@
 	T_CLOSE_PAR,
 } t_token_type;*/
 
-typedef enum
+/*typedef enum
 {
 	IN,
 	OUT,
 	APPEND,
 	HERE_DOC
-} t_redirect_type;
+} t_redirect_type;*/
 
 typedef struct	s_arg
 {
@@ -63,16 +63,16 @@ void	parse(void);
 //arg
 t_arg	*new_arg(char *arg);
 void	add_arg(t_arg **list, t_arg *new);
+void	arg_list_clear(t_arg *arg);
 
 //node
 t_node	*new_list(t_arg *args, t_redirect *redirect);
 void	add_list(t_node **list, t_node *new);
+void	node_list_clear(t_node *node);
 
 //redirect
 t_redirect	*new_redirect(char *path, t_token_type type);
 void		add_redirect(t_redirect **redirect, t_redirect *new);
-
-//syntax_error
-void	syntax_error(void);
+void	redirect_list_clear(t_redirect *redirect);
 
 # endif

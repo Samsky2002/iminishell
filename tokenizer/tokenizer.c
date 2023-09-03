@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 12:53:42 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/06/15 15:55:01 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/02 11:52:24 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	word_token(t_token **token, char *line)
 	i = 0;
 	quotes = 0;
 	result = NULL;
-	while (line && line[i] && (quotes || (line[i] != '>' && line[i] != '<' && line[i] != '|' && line[i] != ' ')))
+	while (line && line[i] && (quotes || (line[i] != '>' && \
+					line[i] != '<' && line[i] != '|' && line[i] != ' ')))
 	{
 		if ((line[i] == '\'' || line[i] == '"') && quotes == 0)
 			quotes = line[i];
@@ -41,39 +42,29 @@ int	space_token(char *line)
 	int	i;
 
 	i = 0;
-	while (line && line[i] && line[i] == ' ')
-		i++;	
+	while (line && line[i] && (line[i] == ' ' || line[i] == '\t'))
+		i++;
 	return (i);
 }
 
-int	special_token(t_token **token, t_token_type type)
+int	single_char_special_token(t_token **token, t_token_type type)
 {
 	if (type == T_PIPE)
-	{
 		add_token(token, new_token(ft_strdup("|"), type));
-		return (1);
-	}
-	else if (type == T_HERE_DOC)
-	{
-		add_token(token, new_token(ft_strdup("<<"), type));
-		return (2);
-	}
-	else if (type == T_APPEND)
-	{
-		add_token(token, new_token(ft_strdup(">>"), type));
-		return (2);
-	}
 	else if (type == T_IN)
-	{
 		add_token(token, new_token(ft_strdup("<"), type));
-		return (1);
-	}
 	else if (type == T_OUT)
-	{
 		add_token(token, new_token(ft_strdup(">"), type));
-		return (1);
-	}
-	return (0);
+	return (1);
+}
+
+int	double_char_special_token(t_token **token, t_token_type type)
+{
+	if (type == T_HERE_DOC)
+		add_token(token, new_token(ft_strdup("<<"), type));
+	else if (type == T_APPEND)
+		add_token(token, new_token(ft_strdup(">>"), type));
+	return (2);
 }
 
 void	tokenizer(char *line)
@@ -85,15 +76,15 @@ void	tokenizer(char *line)
 	while (line && *line)
 	{
 		if (ft_strncmp(line, "|", 1) == 0)
-			line += special_token(&token, T_PIPE);
+			line += single_char_special_token(&token, T_PIPE);
 		else if (ft_strncmp(line, "<<", 2) == 0)
-			line += special_token(&token, T_HERE_DOC);
+			line += double_char_special_token(&token, T_HERE_DOC);
 		else if ((ft_strncmp(line, ">>", 2) == 0))
-			line += special_token(&token, T_APPEND);
+			line += double_char_special_token(&token, T_APPEND);
 		else if (ft_strncmp(line, ">", 1) == 0)
-			line += special_token(&token, T_OUT);
+			line += single_char_special_token(&token, T_OUT);
 		else if ((ft_strncmp(line, "<", 1) == 0))
-			line += special_token(&token, T_IN);
+			line += single_char_special_token(&token, T_IN);
 		else if (ft_strncmp(line, " ", 1) == 0)
 			line += space_token(line);
 		else

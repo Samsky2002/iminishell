@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/30 17:03:53 by oakerkao          #+#    #+#             */
-/*   Updated: 2022/10/31 10:20:40 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/02 09:59:14 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
 	t_list	*p;
 	t_list	*l;
-	t_list	*a;
 
-	a = lst;
 	if (!lst)
 		return (NULL);
 	l = NULL;

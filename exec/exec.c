@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 10:57:28 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/06/17 20:56:40 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/01 16:48:55 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,9 @@ void	exec_prep()
 void	exec()
 {
 	t_context	ctx;
-	ctx.fd[0] = 0;
-	ctx.fd[1] = 1;
-	exec_prep();
+	/*ctx.fd[0] = 0;
+	ctx.fd[1] = 1;*/
+	//exec_prep();
 	print_exec();
 	//exec_child(&ctx);
 }

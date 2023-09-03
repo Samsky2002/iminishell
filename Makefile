@@ -2,14 +2,11 @@ CC = cc
 
 NAME = minishell
 
-CFLAGS = -fsanitize=address -g #-Wall -Werror -Wextra
+CFLAGS = #-fsanitize=address -g #-Wall -Werror -Wextra
 
-ENV = env/add_node.c \
-	  env/get_env_list.c \
-	  env/get_node.c \
-	  env/new_node.c \
-	  env/get_key.c \
-	  env/get_value.c 
+ENV = env/env.c \
+	  env/get_env.c \
+	  env/env_utils.c
 
 TOKENIZER = tokenizer/tokenizer.c \
 			tokenizer/token_utils.c \
@@ -28,9 +25,9 @@ PARSER = parser/parser.c \
 		 parser/arg_utils.c \
 		 parser/node_utils.c \
 		 parser/redirect_utils.c \
-		 parser/syntax_error.c
 
-EXPANDER = expander/expander.c
+EXPANDER = expander/expander.c \
+		   expander/expander_utils.c
 
 EXEC = exec/exec.c \
 	   exec/exec_utils.c \
@@ -38,14 +35,17 @@ EXEC = exec/exec.c \
 	   exec/exec_redirect.c \
 	   exec/exec_child.c
 
+ERROR = error/syntax_error.c
+
 CFILES = $(ENV) \
 		 $(TOKENIZER) \
-		 $(BUILTINS) \
 		 $(PARSER) \
 		 $(EXPANDER) \
-		 $(EXEC) \
+		 $(ERROR) \
 		 minishell.c \
 		 minishell_utils.c
+		 #$(BUILTINS) \
+		 #$(EXEC) \
 
 LIBFT = libft/libft.a
 
@@ -57,7 +57,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJECTS)
 	make -C libft
-	$(CC) -lreadline $(INCLUDES) $(CFLAGS) $(OBJECTS) $(LIBFT) -o $(NAME)
+	$(CC) $(INCLUDES) $(CFLAGS) $(OBJECTS) $(LIBFT) -o $(NAME) -lreadline
 
 %.o : %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@

@@ -1,28 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_node.c                                         :+:      :+:    :+:   */
+/*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/24 11:46:02 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/06/14 15:01:25 by oakerkao         ###   ########.fr       */
+/*   Created: 2023/09/02 18:37:31 by oakerkao          #+#    #+#             */
+/*   Updated: 2023/09/02 19:03:15 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "env.h"
+#include "minishell.h" 
 
-void	add_node(t_env *new)
+void	env_list_clear(t_env *env)
 {
-	t_env	*list;
+	t_env	*head;
 
-	if (g_minishell.list == NULL)
+	if (!env)
+		return ;
+	head = env;
+	while (head)
 	{
-		g_minishell.list = new;
-		return ;	
+		head = env->next;
+		free(env->key);
+		free(env->value);
+		free(env);
+		env = head;
 	}
-	list = g_minishell.list;
-	while (list->next)
-		list = list->next;
-	list->next = new;
 }

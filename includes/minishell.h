@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 07:49:04 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/06/17 12:57:47 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/02 14:11:12 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include "tokenizer.h"
 # include "parser.h"
 # include "exec.h"
+# include "mini_errors.h"
 
 
 typedef struct s_env	t_env;
@@ -48,5 +49,7 @@ char	**expander(char *str);
 /* utils */
 char	*char_join(char *str, char c);
 char	**put_twod_array(t_list **lst);
+void	print_tokens();
+void	print_list();
 
 # endif

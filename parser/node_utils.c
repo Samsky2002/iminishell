@@ -6,11 +6,11 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:49:43 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/06/14 17:34:00 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/02 17:30:53 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 t_node	*new_list(t_arg *args, t_redirect *redirect)
 {
@@ -30,10 +30,28 @@ void	add_list(t_node **list, t_node *new)
 	if (!*list)
 	{
 		*list = new;
-		return ;	
+		return ;
 	}
 	head = *list;
 	while (head->next)
 		head = head->next;
 	head->next = new;
+}
+
+void	node_list_clear(t_node *node)
+{
+	t_node	*head;
+
+	if (!node)
+		return ;
+	head = node;
+	while (head)
+	{
+		head = node->next;
+		arg_list_clear(node->args);
+		redirect_list_clear(node->redirect);
+		free(node);
+		node = head;
+	}
+	g_minishell.node = NULL;
 }
