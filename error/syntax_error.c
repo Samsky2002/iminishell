@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 12:54:59 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/02 19:36:45 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/04 10:15:34 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,19 @@ void	syntax_error_msg(void)
 		printf("minishell: syntax error\n");
 }
 
+void	var_init(t_syntax_type *type, t_syntax_type *current)
+{
+	*type = -1;
+	*current = -1;
+}
+
 void	syntax_error(void)
 {
 	t_token			*token;
 	t_syntax_type	type;
 	t_syntax_type	current;
 
-	type = -1;
-	current = -1;
+	var_init(&type, &current);
 	token = g_minishell.token;
 	if (token->type == T_PIPE)
 		g_minishell.s_error = 1;

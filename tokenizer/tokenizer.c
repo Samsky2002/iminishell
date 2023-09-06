@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 12:53:42 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/02 11:52:24 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/04 10:17:08 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,22 +65,6 @@ int	double_char_special_token(t_token **token, t_token_type type)
 	else if (type == T_APPEND)
 		add_token(token, new_token(ft_strdup(">>"), type));
 	return (2);
-}
-
-void	free_token_list()
-{
-	t_token	*token;
-
-	token = g_minishell.token;
-	if (!g_minishell.token)
-		return ;
-	while (token)
-	{
-		token = g_minishell.token->next;
-		free(g_minishell.token->token);
-		free(g_minishell.token);
-		g_minishell.token = token;
-	}
 }
 
 void	tokenizer(char *line)

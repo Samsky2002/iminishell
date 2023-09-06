@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 07:49:04 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/03 16:41:20 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/06 14:53:04 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ typedef struct	s_minishell
 	t_token		*token;
 	t_node		*node;
 	t_exec		*exec;
+	t_fd		*here_doc;
 	int			s_error;
 }				t_minishell;
 

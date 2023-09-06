@@ -6,11 +6,11 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 11:07:47 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/03 17:01:38 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/05 18:46:17 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 t_exec	*new_exec(char **arr, t_exec_redirect *redirect)
 {
@@ -30,7 +30,7 @@ void	add_exec(t_exec **exec, t_exec *new)
 	if (!*exec)
 	{
 		*exec = new;
-		return ;	
+		return ;
 	}
 	head = *exec;
 	while (head->next)
@@ -41,29 +41,36 @@ void	add_exec(t_exec **exec, t_exec *new)
 void	print_exec()
 {
 	t_exec	*exec;
+	t_exec_redirect	*redirect;
+	char	**args;
+	int		i;
 
 	exec = g_minishell.exec;
 	while (exec)
 	{
+		args = exec->args;
+		redirect = exec->redirect;
 		printf("<<<<<<<<<<<<<NODE>>>>>>>>>>>>>>>>\n");
 		printf("-----------ARGS------------\n");
-		while (*exec->args)	
+		i = 0;
+		while (args[i])	
 		{
-			printf("%s\n", *exec->args);	
-			exec->args++;
+			printf("%s\n", args[i]);	
+			i++;
 		}
 		printf("-----------ARGS------------\n");
 		printf("-----------REDIRECT------------\n");
-		while (exec->redirect)
+		while (redirect)
 		{
-			while (*exec->redirect->list)
+			i = 0;
+			while (redirect->list[i])
 			{
 				printf("TYPE---->  ");	
-				printf("%s\n", *exec->redirect->list);
-				find_type(exec->redirect->type);
-				exec->redirect->list++;
+				printf("%s\n", redirect->list[i]);
+				find_type(redirect->type);
+				i++;
 			}
-			exec->redirect = exec->redirect->next;
+			redirect = redirect->next;
 		}
 		exec = exec->next;
 		printf("-----------REDIRECT------------\n");
@@ -102,4 +109,17 @@ void	exec_list_clear(t_exec *exec)
 		free(exec);
 		exec = head;
 	}
+}
+
+int	exec_list_count(t_exec *exec)
+{
+	int	i;
+
+	i = 0;
+	while (exec)
+	{
+		exec = exec->next;
+		i++;
+	}
+	return (i);
 }

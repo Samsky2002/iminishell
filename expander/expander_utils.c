@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 13:23:47 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/03 15:17:06 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/04 18:46:17 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	has_space(char *str, int type)
 	int	i;
 
 	i = 0;
+	if (!str || !*str)
+		return (-1);
 	len = ft_strlen(str);
 	if (type == 0)
 	{

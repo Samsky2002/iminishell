@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 14:52:39 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/02 11:40:27 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/04 10:16:59 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,21 @@ void	token_list_clear(t_token *token)
 		head = token->next;
 		token_del(token);
 		token = head;
+	}
+}
+
+void	free_token_list(void)
+{
+	t_token	*token;
+
+	token = g_minishell.token;
+	if (!g_minishell.token)
+		return ;
+	while (token)
+	{
+		token = g_minishell.token->next;
+		free(g_minishell.token->token);
+		free(g_minishell.token);
+		g_minishell.token = token;
 	}
 }

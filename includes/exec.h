@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 10:57:51 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/03 17:01:31 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/06 16:19:27 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ typedef struct	s_exec
 	struct s_exec	*next;
 } t_exec;
 
-typedef struct	s_context
+typedef struct s_fd
 {
-	int	fd[2];
-} t_context;
+	int			fd;
+	struct s_fd	*next;
+} t_fd;
 
 void	exec();
 
@@ -40,6 +41,7 @@ void	add_exec(t_exec **exec, t_exec *new);
 void	print_exec();
 void	exec_redirect_list_clear(t_exec_redirect *redirect);
 void	exec_list_clear(t_exec *exec);
+int		exec_list_count(t_exec *exec);
 
 /* exec_redirect */
 t_exec_redirect	*new_exec_redirect(char **arr, t_token_type type);
@@ -52,6 +54,26 @@ void	in(char **path);
 void	append(char **path);
 
 /* exec_child */
-void	exec_child(t_context *ctx);
+void	exec_child(t_exec *exec, int i, int len, int **pipes);
+char	*path_getter(char *cmd);
+
+/* exec_prep */
+void	exec_prep(void);
+
+/* piping */
+void	piping(void);
+
+/* builtins */
+void	child_builtins(char **arr);
+int		child_builtins_check(char **arr);
+void	parent_builtins(char **arr);
+int		parent_builtins_check(char **arr);
+
+/* here_doc */
+void	here_doc_traverse();
+void	here_doc(t_fd **list, char *delimiter);
+void	add_here_list(t_fd **list, t_fd *new);
+t_fd	*new_here_list(int fd);
+void	got_here_doc(t_exec_redirect *redirect);
 
 # endif

@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 12:19:12 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/06/17 20:58:43 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/06 12:26:35 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,12 @@ void	cd(char *path)
 	}
 	if (chdir(path) == -1)
 	{
-		printf("error\n");
+		printf("|error\n");
 		return ;
 	}
 	change_old_pwd();
 	change_pwd(path);
 }
+
+// cd has a problem when you have multiple pipes
+// maybe take the last path

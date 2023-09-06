@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 18:57:54 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/03 18:50:56 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/04 16:01:58 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,16 @@ int main(int argc, char *argv[], char *enviro[])
 		if (!g_minishell.s_error)
 		{
 			parse();
+			token_list_clear(g_minishell.token);
 			//print_list();
 			exec();
 			node_list_clear(g_minishell.node);
+			exec_list_clear(g_minishell.exec);
 		}
-		token_list_clear(g_minishell.token);
+		else
+			token_list_clear(g_minishell.token);
 		add_history(red);
+		free(red);
 	}
 	env_list_clear(g_minishell.list);
 }

@@ -2,7 +2,7 @@ CC = cc
 
 NAME = minishell
 
-CFLAGS = #-fsanitize=address -g #-Wall -Werror -Wextra
+CFLAGS = -fsanitize=address -g #-Wall -Werror -Wextra
 
 ENV = env/env.c \
 	  env/get_env.c \
@@ -33,7 +33,12 @@ EXEC = exec/exec.c \
 	   exec/exec_utils.c \
 	   exec/exec_redirect_utils.c \
 	   exec/exec_redirect.c \
-	   exec/exec_child.c
+	   exec/exec_child.c \
+	   exec/exec_prep.c \
+	   exec/exec_child_utils.c \
+	   exec/piping.c \
+	   exec/exec_here_doc.c \
+	   exec/here_doc_utils.c
 
 ERROR = error/syntax_error.c
 

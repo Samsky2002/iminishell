@@ -1,26 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   here_doc_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/30 15:10:08 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/04 18:03:57 by oakerkao         ###   ########.fr       */
+/*   Created: 2023/09/06 12:57:55 by oakerkao          #+#    #+#             */
+/*   Updated: 2023/09/06 13:12:56 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	ft_lstdelone(t_list	*lst, void (*del)(void *))
+t_fd	*new_here_list(int fd)
 {
-	t_list	*p;
+	t_fd	*head;
 
-	if (lst == NULL)
+	head = malloc(sizeof(t_fd));
+	if (!head)
+		return (0);
+	head->fd = fd;
+	head->next = NULL;
+	return (head);
+}
+
+void	add_here_list(t_fd **list, t_fd *new)
+{
+	t_fd	*head;
+
+	if (!*list)
+	{
+		*list = new;
 		return ;
-	p = lst;
-	p = p -> next;
-	if (lst->content)
-		del(lst -> content);
-	free(lst);
+	}
+	head = *list;
+	while (head->next)
+		head = head->next;
+	head->next = new;
 }
