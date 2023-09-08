@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:54:33 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/03 16:40:38 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/06 18:01:48 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,51 @@ void	free_twod_array(char **arr)
 		tmp++;
 	}
 	free(arr);
+}
+
+int	put_twod_size(t_list *lst)
+{
+	int	len;
+
+	len = 0;
+	while (lst)
+	{
+		if (lst->content)
+			len++;
+		lst = lst->next;
+	}
+	return (len);
+}
+
+char	**put_twod_array(t_list **lst)
+{
+	int		len;
+	char	**arr;
+	int		i;
+	t_list	*tmp;
+
+	i = 0;
+	tmp = *lst;
+	len = put_twod_size(tmp);
+	arr = malloc((len + 1) * sizeof(char *));
+	while (tmp)
+	{
+		if (tmp->content)
+		{
+			arr[i] = ft_strdup(tmp->content);
+			i++;
+		}
+		tmp = tmp->next;
+	}
+	arr[i] = NULL;
+	/*i = 0;
+	while (arr[i])
+	{
+		printf("%s\n", arr[i]);
+		i++;
+	}*/
+	ft_lstclear(lst, free);
+	return (arr);
 }
 
 void	print_list()

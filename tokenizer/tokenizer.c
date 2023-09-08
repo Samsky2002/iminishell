@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 12:53:42 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/04 10:17:08 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/07 10:51:35 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	word_token(t_token **token, char *line)
 		i++;
 	}
 	if (quotes)
-		g_minishell.s_error = 1;
+		g_minishell.mini_error = SYNTAX_ERROR;
 	add_token(token, new_token(result, T_WORD));
 	return (i);
 }
@@ -72,7 +72,6 @@ void	tokenizer(char *line)
 	t_token	*token;
 
 	token = NULL;
-	g_minishell.s_error = 0;
 	while (line && *line)
 	{
 		if (ft_strncmp(line, "|", 1) == 0)

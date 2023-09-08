@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 18:04:54 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/05 17:35:25 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/07 15:39:21 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	add_split(t_list **lst, t_list **tmp, char **splited)
 		ft_lstadd_back(lst, ft_lstnew(NULL));
 		(*tmp) = (*tmp)->next;
 		(*tmp)->content = ft_strdup(*splited);
-		free(*splited);
 		splited++;
 	}
 }
@@ -34,12 +33,25 @@ int	left_space_expand_variable(t_list **tmp, char **splited)
 
 	tmp_splited = splited;
 	temp = ft_strjoin((*tmp)->content, *splited);
-	free(*splited);
 	if ((*tmp)->content)
 		free((*tmp)->content);
 	(*tmp)->content = temp;
 	splited++;
 	return (1);
+}
+
+void	expand_exit_status(t_list **tmp)
+{
+	char	*temp;
+
+	if ((*tmp)->content)
+	{
+		temp = ft_strjoin((*tmp)->content, ft_itoa(g_minishell.exit_s));
+		free((*tmp)->content);
+		(*tmp)->content = temp;
+	}
+	else
+		(*tmp)->content = ft_strdup(ft_itoa(g_minishell.exit_s));
 }
 
 int	expand_variable(t_list **lst, t_list **tmp, char *str)
@@ -54,27 +66,13 @@ int	expand_variable(t_list **lst, t_list **tmp, char *str)
 	splited_tmp = NULL;
 	var = get_var_name(str + 1);
 	if (!var)
-		return (0);
+		return (1);
+	if (ft_strcmp(var, "?") == 0)
+		expand_exit_status(tmp);
 	node = get_node(var);
 	len = ft_strlen(var);
 	if (node && node->value && node->value[0])
-	{
-		if (node->value && node->value[0])
-		{
-			splited = ft_split(node->value, ' ');
-			splited_tmp = splited;
-		}
-		if ((*tmp)->content && splited && has_space(node->value, -1) == 0)
-			splited += left_space_expand_variable(tmp, splited);
-		add_split(lst, tmp, splited);
-		if (has_space(node->value, 1) && node->value && node->value[0])
-		{
-			ft_lstadd_back(lst, ft_lstnew(NULL));
-			(*tmp) = (*tmp)->next;
-		}
-	}
-	if (splited_tmp)
-		free(splited_tmp);
+		expand_variable_helper(node, lst, tmp);
 	free(var);
 	return (len);
 }
@@ -87,6 +85,10 @@ int	expand_quoted_variable(t_list **lst, t_list **tmp, char *str)
 	char	*temp;
 
 	var = get_var_name(str + 1);
+	if (!var)
+		return (1);
+	if (ft_strcmp(var, "?") == 0)
+		expand_exit_status(tmp);
 	node = get_node(var);
 	len = ft_strlen(var);
 	if (node)
@@ -111,9 +113,8 @@ char	**expander(char *str)
 	t_list	*lst;
 	t_list	*tmp;
 
-	expander_init(&lst, &quotes, &i);
-	tmp = lst;
-	while (str && str[i])
+	expander_init(&lst, &quotes, &i, &tmp);
+	while (str && str[++i])
 	{
 		if ((str[i] == '\'' || str[i] == '"') && !quotes)
 		{
@@ -130,7 +131,6 @@ char	**expander(char *str)
 			tmp->content = char_join(tmp->content, str[i]);
 		if (str[i] == '$')
 			tmp->content = char_join(tmp->content, str[i]);
-		i++;
 	}
 	return (put_twod_array(&lst));
 }

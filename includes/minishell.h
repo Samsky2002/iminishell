@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 07:49:04 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/06 14:53:04 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/08 12:25:45 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <fcntl.h>
+# include <sys/wait.h>
 # include "../libft/libft.h"
 # include "env.h"
 # include "builtin.h"
@@ -26,6 +27,7 @@
 # include "exec.h"
 # include "mini_errors.h"
 # include "expander.h"
+# include <signal.h>
 
 
 typedef struct s_env	t_env;
@@ -36,12 +38,13 @@ void	find_type(int i);
 
 typedef struct	s_minishell
 {
-	t_env		*list;
-	t_token		*token;
-	t_node		*node;
-	t_exec		*exec;
-	t_fd		*here_doc;
-	int			s_error;
+	t_env			*list;
+	t_token			*token;
+	t_node			*node;
+	t_exec			*exec;
+	t_fd			*here_doc;
+	t_exec_error	mini_error;
+	int				exit_s;
 }				t_minishell;
 
  t_minishell	g_minishell;
@@ -54,5 +57,6 @@ char	**put_twod_array(t_list **lst);
 void	print_tokens();
 void	print_list();
 void	free_twod_array(char **arr);
+void	rl_replace_line (const char *text, int clear_undo);
 
 # endif

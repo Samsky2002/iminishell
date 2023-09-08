@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 11:07:47 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/05 18:46:17 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/07 17:28:24 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,9 @@ void	print_exec()
 			}
 			redirect = redirect->next;
 		}
-		exec = exec->next;
 		printf("-----------REDIRECT------------\n");
 		printf("<<<<<<<<<<<<<<END_NODE>>>>>>>>>>>>>\n\n\n");
+		exec = exec->next;
 	}
 }
 

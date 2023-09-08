@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 10:57:51 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/06 16:19:27 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/08 10:26:28 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	in(char **path);
 void	append(char **path);
 
 /* exec_child */
-void	exec_child(t_exec *exec, int i, int len, int **pipes);
+void	exec_child(t_exec *exec);
 char	*path_getter(char *cmd);
 
 /* exec_prep */
@@ -75,5 +75,6 @@ void	here_doc(t_fd **list, char *delimiter);
 void	add_here_list(t_fd **list, t_fd *new);
 t_fd	*new_here_list(int fd);
 void	got_here_doc(t_exec_redirect *redirect);
+void	here_list_clear(t_fd *list);
 
 # endif

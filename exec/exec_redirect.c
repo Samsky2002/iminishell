@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 12:45:09 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/06 15:41:50 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/07 15:59:56 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@ void	out(char **path)
 
 	fd = open(*path, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (fd == -1)
-		printf("error\n");
+	{
+		if (access(*path, W_OK))
+			g_minishell.mini_error = PERMISSION_DENIED_FILE;
+		return ;
+	}
 	dup2(fd, 1);
 	close(fd);
 }
@@ -29,7 +33,16 @@ void	in(char **path)
 
 	fd = open(*path, O_RDONLY);
 	if (fd == -1)
-		printf("error\n");
+	{
+		if (!access(*path, F_OK))
+		{
+			if (access(*path, R_OK))
+				g_minishell.mini_error = PERMISSION_DENIED_FILE;
+		}
+		else
+			g_minishell.mini_error = NO_SUCH_FILE;
+		return ;
+	}
 	dup2(fd, 0);
 	close(fd);
 }
@@ -40,7 +53,11 @@ void	append(char **path)
 
 	fd = open(*path, O_CREAT | O_WRONLY | O_APPEND, 0644);
 	if (fd == -1)
-		printf("error\n");
+	{
+		if (access(*path, W_OK))
+			g_minishell.mini_error = PERMISSION_DENIED_FILE;
+		return ;
+	}
 	dup2(fd, 1);
 	close(fd);
 }

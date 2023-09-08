@@ -62,8 +62,8 @@ all : $(NAME)
 
 $(NAME) : $(OBJECTS)
 	make -C libft
-
-	$(CC) $(INCLUDES) $(CFLAGS) $(OBJECTS) $(LIBFT) -o $(NAME) -lreadline
+#-L/goinfre/oakerkao/homebrew/opt/readline/lib
+	$(CC) $(INCLUDES)  $(CFLAGS) $(OBJECTS) $(LIBFT) -o $(NAME) -lreadline
 
 
 %.o : %.c

@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 12:34:17 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/06 16:19:11 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/08 12:33:08 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	here_doc(t_fd **list, char *delimiter)
 	while (1)
 	{
 		red = readline("here_doc>");
+		if (!red)
+			break ;
 		if (ft_strcmp(red, delimiter) == 0)
 			break ;
 		ft_putstr_fd(red, p[1]);

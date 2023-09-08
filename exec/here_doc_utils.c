@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 12:57:55 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/06 13:12:56 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/06 19:47:20 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,19 @@ void	add_here_list(t_fd **list, t_fd *new)
 	while (head->next)
 		head = head->next;
 	head->next = new;
+}
+
+void	here_list_clear(t_fd *list)
+{
+	t_fd	*head;
+
+	if (!list)
+		return ;
+	head = list;
+	while (head)
+	{
+		head = list->next;
+		free(list);
+		list = head;
+	}
 }
