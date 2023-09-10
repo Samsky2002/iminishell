@@ -6,12 +6,12 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 12:34:17 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/10 12:26:47 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/10 19:22:34 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-//here_doc_expansion
+
 void	got_here_doc(t_exec_redirect *redirect, t_minishell *minishell)
 {
 	while (redirect)
@@ -72,36 +72,17 @@ char	*word_join(char *str, char **arr)
 	int		count;
 
 	i = 0;
-	count = 0;
+	result = NULL;
+	if (str)
+		result = ft_strdup(str);
 	while (arr && arr[i])
 	{
-		count += ft_strlen(arr[i]);
+		if (result)
+			result = ft_strjoin(result, arr[i]);
+		else
+			result = ft_strdup(arr[i]);
 		i++;
 	}
-	if (str)
-		count += ft_strlen(str);
-	result = malloc(count + 1);
-	i = 0;
-	j = 0;
-	while (str && str[j])
-	{
-		result[i] = str[j];
-		i++;
-		j++;
-	}
-	j = 0;
-	while (arr && arr[j])
-	{
-		k = 0;
-		while (arr[j][k])
-		{
-			result[i] = arr[j][k];
-			i++;
-			k++;
-		}
-		j++;
-	}
-	result[i] = '\0';
 	return (result);
 }
 
@@ -117,20 +98,30 @@ char	*expand_here_doc(char *line, t_minishell *minishell)
 	{
 		if (line[i] != ' ')
 		{
-			printf("%s\n", line + i);
 			arr = expander(line + i, minishell);
-			printf("%s\n", arr[i]);
-			exit(0);
 			result = word_join(result, arr);
 			i += skip_word(line + i);
 			continue ;
 		}
-		else
-			result = char_join(result, ' ');
+		else if (line[i] == ' ')
+			result = char_join(result, line[i]);
 		i++;
 	}
-	exit(0);
 	return (result);
+}
+
+char	*get_end(char *delimiter)
+{
+	char	*end;
+
+	end = NULL;
+	if (ft_strchr(delimiter, '"'))
+		end = ft_strtrim(delimiter, "\"");
+	else if (ft_strchr(delimiter, '\''))
+		end = ft_strtrim(delimiter, "'");
+	else
+		end = ft_strdup(delimiter);
+	return (end);
 }
 
 void	here_doc(t_fd **list, char *delimiter, t_minishell *minishell)
@@ -139,12 +130,7 @@ void	here_doc(t_fd **list, char *delimiter, t_minishell *minishell)
 	int		p[2];
 	char	*end;
 
-	if (ft_strchr(delimiter, '"'))
-		end = ft_strtrim(delimiter, "\"");
-	else if (ft_strchr(delimiter, '\''))
-		end = ft_strtrim(delimiter, "'");
-	else
-		end = ft_strdup(delimiter);
+	end = get_end(delimiter);
 	pipe(p);
 	while (1)
 	{
@@ -153,7 +139,6 @@ void	here_doc(t_fd **list, char *delimiter, t_minishell *minishell)
 			break ;
 		if (!ft_strchr(delimiter, '\'') && !ft_strchr(delimiter, '"'))
 			red = expand_here_doc(red, minishell);
-		exit(0);
 		if (ft_strcmp(red, end) == 0)
 			break ;
 		ft_putstr_fd(red, p[1]);

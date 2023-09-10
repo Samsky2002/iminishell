@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 12:30:53 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/10 09:17:42 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/10 20:44:48 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ void	child_builtins(char **arr, t_minishell *minishell)
 		pwd();
 	else if (strcmp(arr[0], "env") == 0)
 		env(minishell);
-	else if (strcmp(arr[0], "export") == 0 && exec_list_count(minishell->exec) > 1)
+	else if (strcmp(arr[0], "export") == 0 && \
+			exec_list_count(minishell->exec) > 1)
 		export(arr, minishell);
 	if (strcmp(arr[0], "export"))
 		exec_error(minishell);
@@ -101,13 +102,18 @@ void	exec_child(t_minishell *minishell, t_exec *exec)
 		}
 		else
 		{
-			execve(path_getter(args[0], minishell) , args, minishell->enviro);
-			exec_error(minishell);
-			exec_error_msg(minishell);
+			if (path_getter(args[0], minishell))
+			{
+				execve(path_getter(args[0], minishell) \
+						, args, minishell->enviro);
+
+			}
+				exec_error(minishell);
+				exec_error_msg(minishell);
 		}
 	}
 	exit(minishell->exit_s);
 }
-
 // exec_args pointer gets lost
-// when i don't protect the if condition if there is an error with the file he enters the execve
+// when i don't protect the if condition if 
+// there is an error with the file he enters the execve

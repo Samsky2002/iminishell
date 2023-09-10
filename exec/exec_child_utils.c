@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 17:44:26 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/09 17:42:20 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/10 19:35:10 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,8 @@ char	*program_check(char *cmd, t_minishell *minishell)
 	return (0);
 }
 
-char	*path_getter(char *cmd, t_minishell *minishell)
+int	path_getter_check(char *cmd, t_env *list, t_minishell *minishell)
 {
-	t_env	*list;
-	char	**split;
-	int		i;
-
-	i = 0;
-	list = get_node("PATH", minishell->env);
 	if (!list)
 	{
 		minishell->mini_error = NO_SUCH_PROGRAM;
@@ -65,13 +59,29 @@ char	*path_getter(char *cmd, t_minishell *minishell)
 		minishell->mini_error = CMD_NOT_FOUND;
 		return (0);
 	}
+	return (1);
+}
+
+char	*path_getter(char *cmd, t_minishell *minishell)
+{
+	t_env	*list;
+	char	**split;
+	int		i;
+
+	i = 0;
+	list = get_node("PATH", minishell->env);
+	if (path_getter_check(cmd, list, minishell) == 0)
+	{
+		printf("cmd or env not found\n");
+		return (0);
+	}
 	if (ft_strchr(cmd, '/'))
 		return (program_check(cmd, minishell));
 	split = ft_split(list->value, ':');
 	while (split[i])
 	{
 		if (path_check(*(split + i), cmd, minishell))
-			return(path_check(*(split + i), cmd, minishell));
+			return (path_check(*(split + i), cmd, minishell));
 		i++;
 	}
 	if (minishell->mini_error != PERMISSION_DENIED_PROG)

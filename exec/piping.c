@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 18:32:59 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/09 19:21:00 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/10 18:13:44 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,7 @@ void	piping_loop(t_minishell *minishell)
 			parent_builtins(exec->args, minishell);
 		pipe(pipes);
 		if (fork() == 0)
-		{
 			exec_child_prep(exec, minishell, prev_pipe_read, pipes);
-		}
 		if (prev_pipe_read != -1)
 			close(prev_pipe_read);
 		close(pipes[1]);
@@ -95,7 +93,6 @@ void	piping(t_minishell *minishell)
 	minishell->here_doc = fd;
 	here_list_clear(minishell->here_doc);
 }
-
 /*here_doc_gets_incrementes in the child process
 / be careful what happens in child doens't affect parent*/
 /*

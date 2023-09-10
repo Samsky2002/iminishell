@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 18:57:54 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/10 17:16:08 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/10 20:08:54 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int main(int argc, char *argv[], char *enviro[])
 		if (minishell.mini_error == SUCCESS)
 		{
 			minishell.node = parse(minishell.token);
+			//print_list(minishell.node);
 			token_list_clear(minishell.token);
 			exec(&minishell);
 		}
