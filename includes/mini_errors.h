@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 13:00:28 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/07 10:43:29 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/09 18:23:29 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,17 @@ typedef enum
 	PERMISSION_DENIED_PROG,
 	NO_SUCH_FILE,
 	PERMISSION_DENIED_FILE,
+	AMBIGUOUS,
+	TOO_MANY_ARGS,
+	NUMERIC_ARG_REQ,
+	NOT_VALID,
 	SUCCESS
 } t_exec_error;
 
 // syntax_error
-void	syntax_error(void);
-void	exec_error(void);
-void	exec_error_msg(void);
-void	error_printer(void);
+void	syntax_error(t_minishell *minishell);
+void	exec_error(t_minishell *minishell);
+void	exec_error_msg(t_minishell *minishell);
+void	error_printer(t_minishell *minishell);
 
 #endif

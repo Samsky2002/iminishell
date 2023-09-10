@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 18:04:54 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/07 15:39:21 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/10 12:31:50 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,15 @@ void	add_split(t_list **lst, t_list **tmp, char **splited)
 	i = 0;
 	while (splited && *splited)
 	{
-		ft_lstadd_back(lst, ft_lstnew(NULL));
-		(*tmp) = (*tmp)->next;
-		(*tmp)->content = ft_strdup(*splited);
+		if ((*tmp)->content)
+			ft_strjoin((*tmp)->content, *splited);
+		else
+			(*tmp)->content = ft_strdup(*splited);
+		if (*(splited + 1))
+		{
+			ft_lstadd_back(lst, ft_lstnew(NULL));
+			(*tmp) = (*tmp)->next;
+		}
 		splited++;
 	}
 }
@@ -40,21 +46,21 @@ int	left_space_expand_variable(t_list **tmp, char **splited)
 	return (1);
 }
 
-void	expand_exit_status(t_list **tmp)
+void	expand_exit_status(t_list **tmp, t_minishell *minishell)
 {
 	char	*temp;
 
 	if ((*tmp)->content)
 	{
-		temp = ft_strjoin((*tmp)->content, ft_itoa(g_minishell.exit_s));
+		temp = ft_strjoin((*tmp)->content, ft_itoa(minishell->exit_s));
 		free((*tmp)->content);
 		(*tmp)->content = temp;
 	}
 	else
-		(*tmp)->content = ft_strdup(ft_itoa(g_minishell.exit_s));
+		(*tmp)->content = ft_strdup(ft_itoa(minishell->exit_s));
 }
 
-int	expand_variable(t_list **lst, t_list **tmp, char *str)
+int	expand_variable(t_list **lst, t_list **tmp, char *str, t_minishell *minishell)
 {
 	char	*var;
 	char	**splited;
@@ -68,8 +74,8 @@ int	expand_variable(t_list **lst, t_list **tmp, char *str)
 	if (!var)
 		return (1);
 	if (ft_strcmp(var, "?") == 0)
-		expand_exit_status(tmp);
-	node = get_node(var);
+		expand_exit_status(tmp, minishell);
+	node = get_node(var, minishell->env);
 	len = ft_strlen(var);
 	if (node && node->value && node->value[0])
 		expand_variable_helper(node, lst, tmp);
@@ -77,7 +83,7 @@ int	expand_variable(t_list **lst, t_list **tmp, char *str)
 	return (len);
 }
 
-int	expand_quoted_variable(t_list **lst, t_list **tmp, char *str)
+int	expand_quoted_variable(t_list **lst, t_list **tmp, char *str, t_minishell *minishell)
 {
 	char	*var;
 	t_env	*node;
@@ -88,8 +94,8 @@ int	expand_quoted_variable(t_list **lst, t_list **tmp, char *str)
 	if (!var)
 		return (1);
 	if (ft_strcmp(var, "?") == 0)
-		expand_exit_status(tmp);
-	node = get_node(var);
+		expand_exit_status(tmp, minishell);
+	node = get_node(var, minishell->env);
 	len = ft_strlen(var);
 	if (node)
 	{
@@ -106,7 +112,7 @@ int	expand_quoted_variable(t_list **lst, t_list **tmp, char *str)
 	return (len);
 }
 
-char	**expander(char *str)
+char	**expander(char *str, t_minishell *minishell)
 {
 	int		i;
 	char	quotes;
@@ -124,13 +130,13 @@ char	**expander(char *str)
 		else if (str[i] == quotes)
 			quotes = 0;
 		else if (str[i] == '$' && quotes == 0)
-			i += expand_variable(&lst, &tmp, str + i);
+			i += expand_variable(&lst, &tmp, str + i, minishell);
 		else if (str[i] == '$' && quotes == '"')
-			i += expand_quoted_variable(&lst, &tmp, str + i);
+			i += expand_quoted_variable(&lst, &tmp, str + i, minishell);
 		else
 			tmp->content = char_join(tmp->content, str[i]);
-		if (str[i] == '$')
-			tmp->content = char_join(tmp->content, str[i]);
+		if (!str[i])
+			break ;
 	}
 	return (put_twod_array(&lst));
 }

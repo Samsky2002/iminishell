@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 12:30:53 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/08 11:52:33 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/10 09:17:42 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	parent_builtins_check(char **arr)
 	else if (strcmp(arr[0], "exit") == 0)
 		return (1);
 	return (0);
-	exit(g_minishell.exit_s);
 }
 
 int	child_builtins_check(char **arr)
@@ -49,7 +48,7 @@ int	child_builtins_check(char **arr)
 	return (0);
 }
 
-void	child_builtins(char **arr)
+void	child_builtins(char **arr, t_minishell *minishell)
 {
 	if (!arr || !*arr)
 		return ;
@@ -58,44 +57,33 @@ void	child_builtins(char **arr)
 	else if (strcmp(arr[0], "pwd") == 0)
 		pwd();
 	else if (strcmp(arr[0], "env") == 0)
-		env();
+		env(minishell);
+	else if (strcmp(arr[0], "export") == 0 && exec_list_count(minishell->exec) > 1)
+		export(arr, minishell);
+	if (strcmp(arr[0], "export"))
+		exec_error(minishell);
 }
 
-void	parent_builtins(char **arr)
+void	parent_builtins(char **arr, t_minishell *minishell)
 {
 	if (!arr || !*arr)
 		return ;
 	else if (strcmp(arr[0], "cd") == 0)
-		cd(arr[1]);
+		cd(arr[1], minishell);
 	else if (strcmp(arr[0], "export") == 0)
-		export(arr);
+		export(arr, minishell);
 	else if (strcmp(arr[0], "unset") == 0)
-		unset(arr);
+		unset(arr, minishell);
 	else if (strcmp(arr[0], "exit") == 0)
-		ft_exit(arr);
-}
-
-void	close_child_pipes(int **pipes, int i, int len, t_exec_redirect *redirect_list)
-{
-	int	j;
-
-	j = 0;
-	if (i != 0)
-		dup2(pipes[i - 1][0], 0);
-	if (i != len - 1)
-		dup2(pipes[i][1], 1);
-	while (j < len - 1)
+		ft_exit(arr, minishell);
+	if (strcmp(arr[0], "export"))
 	{
-		if (j != 0)
-			close(pipes[j][0]);
-		if (j != len - 1)
-			close(pipes[j][1]);
-		j++;
+		exec_error(minishell);
+		exec_error_msg(minishell);
 	}
-	redirect(redirect_list);
 }
 
-void	exec_child(t_exec *exec)
+void	exec_child(t_minishell *minishell, t_exec *exec)
 {
 	t_exec_redirect	*redirect_list;
 	char			**args;
@@ -103,25 +91,22 @@ void	exec_child(t_exec *exec)
 
 	redirect_list = exec->redirect;
 	args = exec->args;
-	redirect(redirect_list);
-	if (child_builtins_check(args))
+	redirect(redirect_list, minishell);
+	if (minishell->mini_error == SUCCESS)
 	{
-		child_builtins(args);
-		exit(g_minishell.exit_s);
-	}
-	cmd = path_getter(args[0]);
-	if (g_minishell.mini_error == SUCCESS)
-	{
-		if (execve(cmd , args, NULL) == -1)
+		if (child_builtins_check(args))
 		{
-			exec_error();
-			exec_error_msg();
-			exit(g_minishell.exit_s);
+			child_builtins(args, minishell);
+			exit(minishell->exit_s);
+		}
+		else
+		{
+			execve(path_getter(args[0], minishell) , args, minishell->enviro);
+			exec_error(minishell);
+			exec_error_msg(minishell);
 		}
 	}
-	exec_error();
-	exec_error_msg();
-	exit(g_minishell.exit_s);
+	exit(minishell->exit_s);
 }
 
 // exec_args pointer gets lost

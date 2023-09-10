@@ -6,19 +6,19 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 09:56:37 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/06/14 15:03:58 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/09 17:34:04 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-void	remove_node(char *key)
+void	remove_node(char *key, t_minishell *minishell)
 {
 	t_env	*current;
 	t_env	*prev;
 
 	prev = NULL;
-	current = g_minishell.list;
+	current = minishell->env;
 	while (current)
 	{
 		if (strcmp(current->key, key) == 0)
@@ -26,7 +26,7 @@ void	remove_node(char *key)
 			if (prev)
 				prev->next = current->next;
 			else
-				g_minishell.list = current->next;
+				minishell->env = current->next;
 			free(current);
 			break ;
 		}
@@ -35,7 +35,7 @@ void	remove_node(char *key)
 	}
 }
 
-void	unset(char **args)
+void	unset(char **args, t_minishell *minishell)
 {
 	int	i;
 
@@ -52,7 +52,7 @@ void	unset(char **args)
 		else if (ft_strchr(args[i], '='))
 			return ;
 		else
-			remove_node(get_key(args[i]));
+			remove_node(get_key(args[i]), minishell);
 		i++;
 	}
 }

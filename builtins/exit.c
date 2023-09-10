@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:41:56 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/06/17 21:37:59 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/09 16:30:22 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	is_number(char *str)
 	return (1);
 }
 
-int	check_exit_arg(char *str)
+int	check_exit_arg(char *str, t_minishell *minishell)
 {
 	int	i;
 	int	sign;
@@ -66,26 +66,33 @@ int	check_exit_arg(char *str)
 	}
 	if (is_number(str + i) == 0 || is_valid(str + i, sign) == 0)
 	{
-		printf("error\n");
-		exit(0);
+		minishell->mini_error = NUMERIC_ARG_REQ;
+		exec_error_msg(minishell);
+		exec_error(minishell);
+		exit(minishell->exit_s);
 	}
 	return (ft_atoi(str));
 }
 
-void	ft_exit(char **args)
+void	ft_exit(char **args, t_minishell *minishell)
 {
 	int	exit_value;
 
 	if (args[1])
 	{
-		if (check_exit_arg(args[1]) && !args[2])
+		if (check_exit_arg(args[1], minishell) && !args[2])
 		{
-			exit_value = check_exit_arg(args[1]);
+			exit_value = check_exit_arg(args[1], minishell);
 			exit(exit_value);
 		}
 		if (args[2])
 		{
+			minishell->mini_error = TOO_MANY_ARGS;
+			//exec_error_msg();
+			exec_error(minishell);
 			return ;
 		}
 	}
+	exit(minishell->exit_s);
 }
+// understand this code

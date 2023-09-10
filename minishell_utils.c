@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:54:33 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/06 18:01:48 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/09 12:56:53 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ char	**put_twod_array(t_list **lst)
 		tmp = tmp->next;
 	}
 	arr[i] = NULL;
-	/*i = 0;
-	while (arr[i])
+	i = 0;
+	/*while (arr[i])
 	{
 		printf("%s\n", arr[i]);
 		i++;
@@ -105,13 +105,11 @@ char	**put_twod_array(t_list **lst)
 	return (arr);
 }
 
-void	print_list()
+void	print_list(t_node *node)
 {
-	t_node	*node;
 	int	i;
 
 	i = 0;
-	node = g_minishell.node;
 	while (node)
 	{
 		printf("-----------NODE-------------\n");
@@ -151,11 +149,8 @@ void	find_type(int i)
 }
 
 
-void	print_tokens()
+void	print_tokens(t_token *token)
 {
-	t_token	*token;
-
-	token = g_minishell.token;
 	while (token)
 	{
 		printf("--------------------START----------------\n");

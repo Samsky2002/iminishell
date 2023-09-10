@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 18:57:54 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/08 12:42:03 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/10 17:16:08 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,41 +25,41 @@ void function(int sig)
 
 int main(int argc, char *argv[], char *enviro[])
 {
-	char	*red;
-	t_token	*token;
-	char	**list;
+	char		*red;
+	t_minishell	minishell;
 
-	get_env_list(enviro);
+	minishell.enviro = enviro;
+	minishell.exit_s = 0;
+	minishell.mini_error = SUCCESS;
+	minishell.env = get_env_list(enviro);
 	signal(SIGQUIT, SIG_IGN);
 	//error_printer();
 	while (1)
 	{
 		signal(SIGINT, function);
-		g_minishell.mini_error = SUCCESS;
+		minishell.mini_error = SUCCESS;
 		red = readline("minishell$ ");
 		if (!red)
-			exit(g_minishell.exit_s);
+			break ;
 		if (!*red)
 			continue ;
-		tokenizer(red);
-		syntax_error();
-		if (g_minishell.mini_error == SUCCESS)
+		minishell.token = tokenizer(red, &minishell);
+		syntax_error(&minishell);
+		if (minishell.mini_error == SUCCESS)
 		{
-			parse();
-			token_list_clear(g_minishell.token);
-			exec();
-			node_list_clear(g_minishell.node);
-			exec_list_clear(g_minishell.exec);
+			minishell.node = parse(minishell.token);
+			token_list_clear(minishell.token);
+			exec(&minishell);
 		}
 		else
 		{
-			token_list_clear(g_minishell.token);
-			exec_error();
-			exec_error_msg();
+			token_list_clear(minishell.token);
+			exec_error(&minishell);
+			exec_error_msg(&minishell);
 		}
 		add_history(red);
 		free(red);
 	}
-	env_list_clear(g_minishell.list);
-	exit(g_minishell.exit_s);
+	env_list_clear(minishell.env);
+	exit(minishell.exit_s);
 }

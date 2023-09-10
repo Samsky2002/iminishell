@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/11 15:14:49 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/02 16:09:38 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/09 12:44:11 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ typedef struct	s_node
 	struct s_node	*next;
 } t_node;
 
-void	parse(void);
+t_node	*parse(t_token *token);
 
 //arg
 t_arg	*new_arg(char *arg);

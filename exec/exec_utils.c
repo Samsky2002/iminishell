@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 11:07:47 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/07 17:28:24 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/09 19:18:11 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,12 @@ void	add_exec(t_exec **exec, t_exec *new)
 	head->next = new;
 }
 
-void	print_exec()
+void	print_exec(t_exec *exec)
 {
-	t_exec	*exec;
 	t_exec_redirect	*redirect;
 	char	**args;
 	int		i;
 
-	exec = g_minishell.exec;
 	while (exec)
 	{
 		args = exec->args;
@@ -118,8 +116,8 @@ int	exec_list_count(t_exec *exec)
 	i = 0;
 	while (exec)
 	{
-		exec = exec->next;
 		i++;
+		exec = exec->next;
 	}
 	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 11:42:26 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/02 19:04:33 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/09 12:23:37 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_env	*new_node(char *key, char *value)
 	return (new);
 }
 
-void	get_env_list(char **enviro)
+t_env	*get_env_list(char **enviro)
 {
 	t_env	*list;
 	int		i;
@@ -52,5 +52,5 @@ void	get_env_list(char **enviro)
 		add_node(&list, new_node(get_key(enviro[i]), get_value(enviro[i])));
 		i++;
 	}
-	g_minishell.list = list;
+	return (list);
 }

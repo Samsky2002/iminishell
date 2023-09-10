@@ -6,19 +6,18 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 10:57:28 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/08 11:44:47 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/10 12:35:19 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exec(void)
+void	exec(t_minishell *minishell)
 {
-	exec_prep();
-	here_doc_traverse();
-	piping();
-	/*tasty*/
-	//exec_child(&ctx);
-	//print_exec();
-	//
+	minishell->exec = exec_prep(minishell);
+	//here_doc_traverse(minishell);
+	//piping(minishell);
+	print_exec(minishell->exec);
+	node_list_clear(minishell->node);
+	exec_list_clear(minishell->exec);
 }

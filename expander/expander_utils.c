@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 13:23:47 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/07 15:26:11 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/09 10:30:58 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	expander_init(t_list **lst, char *quotes, int *i, t_list **tmp)
 	*tmp = *lst;
 }
 
-void	expand_variable_helper(t_env *node, t_list **lst, t_list **tmp)
+/*void	expand_variable_helper(t_env *node, t_list **lst, t_list **tmp)
 {
 	char	**splited;
 	char	**splited_tmp;
@@ -89,6 +89,8 @@ void	expand_variable_helper(t_env *node, t_list **lst, t_list **tmp)
 	if ((*tmp)->content && splited && has_space(node->value, -1) == 0)
 		splited += left_space_expand_variable(tmp, splited);
 	add_split(lst, tmp, splited);
+	if (has_space(node->value, 0))
+		return ;
 	if (has_space(node->value, 1) && node->value && node->value[0])
 	{
 		ft_lstadd_back(lst, ft_lstnew(NULL));
@@ -96,4 +98,29 @@ void	expand_variable_helper(t_env *node, t_list **lst, t_list **tmp)
 	}
 	if (splited_tmp)
 		free_twod_array(splited_tmp);
+}*/
+
+void	expand_variable_helper(t_env *node, t_list **lst, t_list **tmp)
+{
+	char	**splited;
+	char	**splited_tmp;
+
+	splited = NULL;
+	splited_tmp = NULL;
+	if (node->value && node->value[0])
+	{
+		splited = ft_split(node->value, ' ');
+		splited_tmp = splited;
+	}
+	if (has_space(node->value, -1) && !has_space(node->value, 0))
+	{
+		ft_lstadd_back(lst, ft_lstnew(NULL));
+		(*tmp) = (*tmp)->next;
+	}
+	add_split(lst, tmp, splited);
+	if (has_space(node->value, 1) && !has_space(node->value, 0))
+	{
+		ft_lstadd_back(lst, ft_lstnew(NULL));
+		(*tmp) = (*tmp)->next;
+	}
 }

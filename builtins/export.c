@@ -6,17 +6,17 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 09:16:20 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/06 16:41:59 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/09 19:05:28 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-void	export_list(void)
+void	export_list(t_minishell *minishell)
 {
 	t_env	*list;
 
-	list = g_minishell.list;
+	list = minishell->env;
 	while (list)
 	{
 		if (list->value != NULL && (ft_strcmp(list->key, "_") != 0))
@@ -42,7 +42,6 @@ int	check_key(char *str)
 		if ((str[i] < 'a' || str[i] > 'z') && (str[i] < 'A' || str[i] > 'Z') && \
 				(str[i] < '0' || str[i] > '9') && (str[i] != '_'))
 		{
-			printf("error\n");
 			return (0);
 		}
 		i++;
@@ -50,7 +49,7 @@ int	check_key(char *str)
 	return (1);
 }
 
-void	export(char **argv)
+void	export(char **argv, t_minishell *minishell)
 {
 	int		i;
 	t_env	*tmp;
@@ -58,24 +57,26 @@ void	export(char **argv)
 	i = 1;
 	if (!argv[i])
 	{
-		export_list();
+		export_list(minishell);
 		return ;
 	}
 	while (argv[i])
 	{
 		if (check_key(argv[i]) == 0)
 		{
-			printf("error\n");
+			minishell->mini_error = NOT_VALID;
+			exec_error_msg(minishell);
+			exec_error(minishell);
 		}
-		else if (get_node(get_key(argv[i])))
+		else if (get_node(get_key(argv[i]), minishell->env))
 		{
-			tmp = get_node(get_key(argv[i]));
+			tmp = get_node(get_key(argv[i]), minishell->env);
 			if (get_value(argv[i]))
 				tmp->value = get_value(argv[i]);
 		}
 		else
 		{
-			add_node(&g_minishell.list, new_node(get_key(argv[i]), get_value(argv[i])));
+			add_node(&minishell->env, new_node(get_key(argv[i]), get_value(argv[i])));
 		}
 		i++;
 	}

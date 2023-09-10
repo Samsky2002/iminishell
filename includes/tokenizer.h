@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 12:53:52 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/03 09:58:21 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/09 13:12:01 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ typedef enum
 	T_APPEND,
 } t_token_type;
 
+typedef struct s_minishell	t_minishell;
+
 typedef struct s_token
 {
 	t_token_type	type;
@@ -32,7 +34,7 @@ typedef struct s_token
 	struct s_token	*next;
 } t_token;
 
-void	tokenizer(char *line);
+t_token	*tokenizer(char *line, t_minishell *minishell);
 
 /* token_utils */
 t_token	*new_token(char *token, t_token_type type);

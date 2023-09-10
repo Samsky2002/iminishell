@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 07:49:04 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/08 12:25:45 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/10 09:18:08 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,24 +38,23 @@ void	find_type(int i);
 
 typedef struct	s_minishell
 {
-	t_env			*list;
+	char			**enviro;
+	t_env			*env;
 	t_token			*token;
 	t_node			*node;
 	t_exec			*exec;
 	t_fd			*here_doc;
 	t_exec_error	mini_error;
 	int				exit_s;
-}				t_minishell;
+} t_minishell;
 
- t_minishell	g_minishell;
-
-char	**expander(char *str);
+char	**expander(char *str, t_minishell *minishell);
 
 /* utils */
 char	*char_join(char *str, char c);
 char	**put_twod_array(t_list **lst);
-void	print_tokens();
-void	print_list();
+void	print_tokens(t_token *token);
+void	print_list(t_node *node);
 void	free_twod_array(char **arr);
 void	rl_replace_line (const char *text, int clear_undo);
 

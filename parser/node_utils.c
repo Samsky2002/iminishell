@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/14 16:49:43 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/02 17:30:53 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/09 13:15:56 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,4 @@ void	node_list_clear(t_node *node)
 		free(node);
 		node = head;
 	}
-	g_minishell.node = NULL;
 }

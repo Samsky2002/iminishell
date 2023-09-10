@@ -31,24 +31,24 @@ EXPANDER = expander/expander.c \
 
 EXEC = exec/exec.c \
 	   exec/exec_utils.c \
-	   exec/exec_redirect_utils.c \
-	   exec/exec_redirect.c \
-	   exec/exec_child.c \
 	   exec/exec_prep.c \
-	   exec/exec_child_utils.c \
-	   exec/piping.c \
+	   exec/exec_redirect_utils.c \
 	   exec/exec_here_doc.c \
-	   exec/here_doc_utils.c
+	   exec/here_doc_utils.c \
+	   exec/piping.c \
+	   exec/exec_redirect.c \
+	   exec/exec_child_utils.c \
+	   exec/exec_child.c 
 
 ERROR = error/syntax_error.c
 
 CFILES = $(ENV) \
 		 $(TOKENIZER) \
+		 $(ERROR) \
 		 $(PARSER) \
 		 $(EXPANDER) \
-		 $(EXEC) \
 		 $(BUILTINS) \
-		 $(ERROR) \
+		 $(EXEC) \
 		 minishell.c \
 		 minishell_utils.c
 

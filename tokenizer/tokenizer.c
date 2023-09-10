@@ -6,13 +6,13 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 12:53:42 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/07 10:51:35 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/09 13:14:08 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	word_token(t_token **token, char *line)
+int	word_token(t_token **token, char *line, t_minishell *minishell)
 {
 	int		i;
 	char	quotes;
@@ -32,7 +32,7 @@ int	word_token(t_token **token, char *line)
 		i++;
 	}
 	if (quotes)
-		g_minishell.mini_error = SYNTAX_ERROR;
+		minishell->mini_error = SYNTAX_ERROR;
 	add_token(token, new_token(result, T_WORD));
 	return (i);
 }
@@ -67,7 +67,7 @@ int	double_char_special_token(t_token **token, t_token_type type)
 	return (2);
 }
 
-void	tokenizer(char *line)
+t_token	*tokenizer(char *line, t_minishell *minishell)
 {
 	t_token	*token;
 
@@ -87,7 +87,7 @@ void	tokenizer(char *line)
 		else if (ft_strncmp(line, " ", 1) == 0)
 			line += space_token(line);
 		else
-			line += word_token(&token, line);
+			line += word_token(&token, line, minishell);
 	}
-	g_minishell.token = token;
+	return (token);
 }
