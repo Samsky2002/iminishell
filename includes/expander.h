@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 10:55:57 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/06 18:07:53 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 12:01:24 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,6 @@ void	expander_init(t_list **lst, char *quotes, int *i, t_list **tmp);
 int		left_space_expand_variable(t_list **tmp, char **splited);
 void	add_split(t_list **lst, t_list **tmp, char **splited);
 void	expand_variable_helper(t_env *node, t_list **lst, t_list **tmp);
+void	go_next(t_list **lst, t_list **tmp, char **arr);
 
 # endif

@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:41:56 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/09 16:30:22 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 13:05:51 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ void	ft_exit(char **args, t_minishell *minishell)
 		if (args[2])
 		{
 			minishell->mini_error = TOO_MANY_ARGS;
-			//exec_error_msg();
 			exec_error(minishell);
 			return ;
 		}
@@ -96,3 +95,4 @@ void	ft_exit(char **args, t_minishell *minishell)
 	exit(minishell->exit_s);
 }
 // understand this code
+// numeric arg req

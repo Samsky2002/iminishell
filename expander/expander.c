@@ -6,31 +6,11 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 18:04:54 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/10 12:31:50 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 10:08:24 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	add_split(t_list **lst, t_list **tmp, char **splited)
-{
-	int	i;
-
-	i = 0;
-	while (splited && *splited)
-	{
-		if ((*tmp)->content)
-			ft_strjoin((*tmp)->content, *splited);
-		else
-			(*tmp)->content = ft_strdup(*splited);
-		if (*(splited + 1))
-		{
-			ft_lstadd_back(lst, ft_lstnew(NULL));
-			(*tmp) = (*tmp)->next;
-		}
-		splited++;
-	}
-}
 
 int	left_space_expand_variable(t_list **tmp, char **splited)
 {
@@ -60,7 +40,8 @@ void	expand_exit_status(t_list **tmp, t_minishell *minishell)
 		(*tmp)->content = ft_strdup(ft_itoa(minishell->exit_s));
 }
 
-int	expand_variable(t_list **lst, t_list **tmp, char *str, t_minishell *minishell)
+int	expand_variable(t_list **lst, t_list **tmp, \
+		char *str, t_minishell *minishell)
 {
 	char	*var;
 	char	**splited;
@@ -83,7 +64,8 @@ int	expand_variable(t_list **lst, t_list **tmp, char *str, t_minishell *minishel
 	return (len);
 }
 
-int	expand_quoted_variable(t_list **lst, t_list **tmp, char *str, t_minishell *minishell)
+int	expand_quoted_variable(t_list **lst, t_list **tmp, \
+		char *str, t_minishell *minishell)
 {
 	char	*var;
 	t_env	*node;

@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 09:56:37 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/09 17:34:04 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 12:51:15 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	remove_node(char *key, t_minishell *minishell)
 	current = minishell->env;
 	while (current)
 	{
-		if (strcmp(current->key, key) == 0)
+		if (ft_strcmp(current->key, key) == 0 && ft_strcmp(current->key, "_"))
 		{
 			if (prev)
 				prev->next = current->next;
@@ -46,7 +46,8 @@ void	unset(char **args, t_minishell *minishell)
 	{
 		if(check_key(args[i]) == 0)
 		{
-			printf("here\n");
+			minishell->mini_error = U_NOT_VALID;
+			exec_error(minishell);
 			return ;
 		}
 		else if (ft_strchr(args[i], '='))

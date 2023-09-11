@@ -6,11 +6,23 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 17:44:26 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/10 19:35:10 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 12:09:24 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	twod_array_size(char **arr)
+{
+	int		i;
+
+	i = 0;
+	while (arr && arr[i])
+	{
+		i++;
+	}
+	return (i);
+}
 
 char	*path_check(char *split, char *cmd, t_minishell *minishell)
 {
@@ -71,10 +83,7 @@ char	*path_getter(char *cmd, t_minishell *minishell)
 	i = 0;
 	list = get_node("PATH", minishell->env);
 	if (path_getter_check(cmd, list, minishell) == 0)
-	{
-		printf("cmd or env not found\n");
 		return (0);
-	}
 	if (ft_strchr(cmd, '/'))
 		return (program_check(cmd, minishell));
 	split = ft_split(list->value, ':');

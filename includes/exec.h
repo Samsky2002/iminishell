@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 10:57:51 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/10 11:23:40 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 11:06:08 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	print_exec();
 void	exec_redirect_list_clear(t_exec_redirect *redirect);
 void	exec_list_clear(t_exec *exec);
 int		exec_list_count(t_exec *exec);
+int		twod_array_size(char **arr);
 
 /* exec_redirect */
 t_exec_redirect	*new_exec_redirect(char **arr, t_token_type type);

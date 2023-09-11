@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 12:19:12 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/10 08:54:20 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 13:44:41 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	change_old_pwd(t_minishell *minishell)
 	env = minishell->env;
 	old = get_node("OLDPWD", env);
 	current = get_node("PWD", env);
+	if (!old)
+		add_node(&minishell->env, new_node(ft_strdup("OLDPWD"), ft_strdup(current->value)));
 	if (old && current)
 		old->value = ft_strdup(current->value);
 }
@@ -54,7 +56,7 @@ void	change_to_home(t_minishell *minishell)
 		chdir(home->value);
 	}
 	else
-		printf("home not set\n");
+		minishell->mini_error = HOME_NOT_SET;
 	// check_leaks
 }
 
@@ -76,3 +78,4 @@ void	cd(char *path, t_minishell *minishell)
 
 // cd has a problem when you have multiple pipes
 // maybe take the last path
+// home not set

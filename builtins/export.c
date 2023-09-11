@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 09:16:20 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/09 19:05:28 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 13:21:15 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	export(char **argv, t_minishell *minishell)
 	{
 		if (check_key(argv[i]) == 0)
 		{
-			minishell->mini_error = NOT_VALID;
+			minishell->mini_error = E_NOT_VALID;
 			exec_error_msg(minishell);
 			exec_error(minishell);
 		}
@@ -75,9 +75,7 @@ void	export(char **argv, t_minishell *minishell)
 				tmp->value = get_value(argv[i]);
 		}
 		else
-		{
 			add_node(&minishell->env, new_node(get_key(argv[i]), get_value(argv[i])));
-		}
 		i++;
 	}
 }

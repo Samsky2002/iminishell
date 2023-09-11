@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 13:00:28 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/09 18:23:29 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 13:17:51 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,9 @@ typedef enum
 	AMBIGUOUS,
 	TOO_MANY_ARGS,
 	NUMERIC_ARG_REQ,
-	NOT_VALID,
+	HOME_NOT_SET,
+	U_NOT_VALID,
+	E_NOT_VALID,
 	SUCCESS
 } t_exec_error;
 

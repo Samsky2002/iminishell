@@ -1,26 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
+/*   expander_second_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/21 09:29:54 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/11 13:08:46 by oakerkao         ###   ########.fr       */
+/*   Created: 2023/09/11 10:49:00 by oakerkao          #+#    #+#             */
+/*   Updated: 2023/09/11 12:00:11 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "builtin.h"
+#include "minishell.h"
 
-void	env(t_minishell *minishell)
+void	go_next(t_list **lst, t_list **tmp, char **arr)
 {
-	t_env	*list;
-
-	list = minishell->env;
-	while (list)
-	{
-		if (list->value != NULL)
-			printf("%s=%s\n", list->key, list->value);	
-		list = list->next;
-	}
+	ft_lstadd_back(lst, ft_lstnew(NULL));
+	*tmp = (*tmp)->next;
+	free_twod_array(arr);
 }

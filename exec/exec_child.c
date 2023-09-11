@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 12:30:53 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/10 20:44:48 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 11:17:09 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,20 +96,13 @@ void	exec_child(t_minishell *minishell, t_exec *exec)
 	if (minishell->mini_error == SUCCESS)
 	{
 		if (child_builtins_check(args))
-		{
 			child_builtins(args, minishell);
-			exit(minishell->exit_s);
-		}
 		else
 		{
-			if (path_getter(args[0], minishell))
-			{
-				execve(path_getter(args[0], minishell) \
-						, args, minishell->enviro);
-
-			}
-				exec_error(minishell);
-				exec_error_msg(minishell);
+			execve(path_getter(args[0], minishell), \
+					args, minishell->enviro);
+			exec_error(minishell);
+			exec_error_msg(minishell);
 		}
 	}
 	exit(minishell->exit_s);

@@ -6,23 +6,11 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 12:45:09 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/09 20:40:42 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 11:18:28 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	twod_array_size(char **arr)
-{
-	int		i;
-
-	i = 0;
-	while (arr && arr[i])
-	{
-		i++;
-	}
-	return (i);
-}
 
 void	out(char **path, t_minishell *minishell)
 {

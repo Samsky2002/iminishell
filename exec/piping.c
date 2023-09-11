@@ -6,13 +6,14 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 18:32:59 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/10 18:13:44 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 11:13:36 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exec_child_prep(t_exec *exec, t_minishell *minishell, int prev_pipe_read, int pipes[2])
+void	exec_child_prep(t_exec *exec, t_minishell *minishell, \
+		int prev_pipe_read, int pipes[2])
 {
 	if (prev_pipe_read != -1)
 	{
@@ -24,9 +25,9 @@ void	exec_child_prep(t_exec *exec, t_minishell *minishell, int prev_pipe_read, i
 	close(pipes[0]);
 	close(pipes[1]);
 	exec_child(minishell, exec);
-
 }
-int exec_list_len(t_exec *exec)
+
+int	exec_list_len(t_exec *exec)
 {
 	int	i;
 
@@ -41,15 +42,16 @@ int exec_list_len(t_exec *exec)
 
 void	piping_loop(t_minishell *minishell)
 {
-	int	pipes[2];
-	int	prev_pipe_read;
+	int		pipes[2];
+	int		prev_pipe_read;
 	t_exec	*exec;
 
 	exec = minishell->exec;
 	prev_pipe_read = -1;
 	while (exec)
 	{
-		if (parent_builtins_check(exec->args) && exec_list_count(minishell->exec) == 1)
+		if (parent_builtins_check(exec->args) && \
+				exec_list_count(minishell->exec) == 1)
 			parent_builtins(exec->args, minishell);
 		pipe(pipes);
 		if (fork() == 0)
@@ -65,19 +67,6 @@ void	piping_loop(t_minishell *minishell)
 		close(prev_pipe_read);
 }
 
-void	free_twod_int_array(int **arr, int len)
-{
-	int	i;
-
-	i = 0;
-	while (i < len - 1)
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
-}
-
 void	piping(t_minishell *minishell)
 {
 	t_exec	*exec;
@@ -87,9 +76,11 @@ void	piping(t_minishell *minishell)
 	fd = minishell->here_doc;
 	exec = minishell->exec;
 	piping_loop(minishell);
-	while (wait(&status) > 0) {};
-	if (WIFEXITED(status))
-		minishell->exit_s = WEXITSTATUS(status);
+	while (wait(&status) > 0)
+	{
+		if (WIFEXITED(status))
+			minishell->exit_s = WEXITSTATUS(status);
+	}
 	minishell->here_doc = fd;
 	here_list_clear(minishell->here_doc);
 }

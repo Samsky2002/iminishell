@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 11:07:47 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/09 19:18:11 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 11:15:52 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	add_exec(t_exec **exec, t_exec *new)
 void	print_exec(t_exec *exec)
 {
 	t_exec_redirect	*redirect;
-	char	**args;
-	int		i;
+	char			**args;
+	int				i;
 
 	while (exec)
 	{
@@ -51,9 +51,9 @@ void	print_exec(t_exec *exec)
 		printf("<<<<<<<<<<<<<NODE>>>>>>>>>>>>>>>>\n");
 		printf("-----------ARGS------------\n");
 		i = 0;
-		while (args[i])	
+		while (args[i])
 		{
-			printf("%s\n", args[i]);	
+			printf("%s\n", args[i]);
 			i++;
 		}
 		printf("-----------ARGS------------\n");
@@ -63,7 +63,7 @@ void	print_exec(t_exec *exec)
 			i = 0;
 			while (redirect->list[i])
 			{
-				printf("TYPE---->  ");	
+				printf("TYPE---->  ");
 				printf("%s\n", redirect->list[i]);
 				find_type(redirect->type);
 				i++;

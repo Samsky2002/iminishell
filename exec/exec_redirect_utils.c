@@ -6,11 +6,11 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 11:08:00 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/06/17 11:38:59 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 11:19:00 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
 t_exec_redirect	*new_exec_redirect(char **arr, t_token_type type)
 {
@@ -30,7 +30,7 @@ void	add_exec_redirect(t_exec_redirect **redirect, t_exec_redirect *new)
 	while (!*redirect)
 	{
 		*redirect = new;
-		return ;	
+		return ;
 	}
 	head = *redirect;
 	while (head->next)

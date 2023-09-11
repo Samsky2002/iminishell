@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 12:54:59 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/10 16:53:13 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 13:17:05 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	syntax_error(t_minishell *minishell)
 
 	token = minishell->token;
 	var_init(&type, &current);
+	if (!token)
+		return ;
 	if (token->type == T_PIPE)
 		minishell->mini_error = SYNTAX_ERROR;
 	while (token && minishell->mini_error == SUCCESS)
@@ -56,7 +58,9 @@ void	exec_error(t_minishell *minishell)
 	else if (minishell->mini_error == NO_SUCH_FILE || \
 			minishell->mini_error == PERMISSION_DENIED_FILE || \
 			minishell->mini_error == AMBIGUOUS || \
-			minishell->mini_error == NOT_VALID || \
+			minishell->mini_error == E_NOT_VALID || \
+			minishell->mini_error == U_NOT_VALID || \
+			minishell->mini_error == HOME_NOT_SET || \
 			minishell->mini_error == TOO_MANY_ARGS)
 		minishell->exit_s = 1;
 	else if (minishell->mini_error == SYNTAX_ERROR)
@@ -85,8 +89,12 @@ void	exec_error_msg(t_minishell *minishell)
 		ft_putstr_fd("minishell: exit: numeric argument required\n", 2);
 	else if (minishell->mini_error == TOO_MANY_ARGS)
 		ft_putstr_fd("minishell: exit: too many arguments\n", 2);
-	else if (minishell->mini_error == NOT_VALID)
+	else if (minishell->mini_error == E_NOT_VALID)
 		ft_putstr_fd("minishell: export: not a valid identifier\n", 2);
+	else if (minishell->mini_error == U_NOT_VALID)
+		ft_putstr_fd("minishell: unset: not a valid identifier\n", 2);
+	else if (minishell->mini_error == HOME_NOT_SET)
+		ft_putstr_fd("minishell: cd: HOME not set\n", 2);
 }
 
 void	error_printer(t_minishell *minishell)

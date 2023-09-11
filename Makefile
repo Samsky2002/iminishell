@@ -2,7 +2,7 @@ CC = cc
 
 NAME = minishell
 
-CFLAGS = -fsanitize=address -g #-Wall -Werror -Wextra
+CFLAGS =  -fsanitize=address -g# -Wall -Werror -Wextra 
 
 ENV = env/env.c \
 	  env/get_env.c \
@@ -27,7 +27,8 @@ PARSER = parser/parser.c \
 		 parser/redirect_utils.c \
 
 EXPANDER = expander/expander.c \
-		   expander/expander_utils.c
+		   expander/expander_utils.c \
+		   expander/expander_second_utils.c
 
 EXEC = exec/exec.c \
 	   exec/exec_utils.c \

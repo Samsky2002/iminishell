@@ -6,11 +6,36 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 13:23:47 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/09 10:30:58 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 11:59:42 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	add_split(t_list **lst, t_list **tmp, char **splited)
+{
+	int		i;
+	char	*temp;
+
+	i = 0;
+	while (splited && *splited)
+	{
+		if ((*tmp)->content)
+		{
+			temp = ft_strjoin((*tmp)->content, *splited);
+			free((*tmp)->content);
+			(*tmp)->content = temp;
+		}
+		else
+			(*tmp)->content = ft_strdup(*splited);
+		if (*(splited + 1))
+		{
+			ft_lstadd_back(lst, ft_lstnew(NULL));
+			(*tmp) = (*tmp)->next;
+		}
+		splited++;
+	}
+}
 
 char	*get_var_name(char *str)
 {
@@ -74,32 +99,6 @@ void	expander_init(t_list **lst, char *quotes, int *i, t_list **tmp)
 	*tmp = *lst;
 }
 
-/*void	expand_variable_helper(t_env *node, t_list **lst, t_list **tmp)
-{
-	char	**splited;
-	char	**splited_tmp;
-
-	splited = NULL;
-	splited_tmp = NULL;
-	if (node->value && node->value[0])
-	{
-		splited = ft_split(node->value, ' ');
-		splited_tmp = splited;
-	}
-	if ((*tmp)->content && splited && has_space(node->value, -1) == 0)
-		splited += left_space_expand_variable(tmp, splited);
-	add_split(lst, tmp, splited);
-	if (has_space(node->value, 0))
-		return ;
-	if (has_space(node->value, 1) && node->value && node->value[0])
-	{
-		ft_lstadd_back(lst, ft_lstnew(NULL));
-		(*tmp) = (*tmp)->next;
-	}
-	if (splited_tmp)
-		free_twod_array(splited_tmp);
-}*/
-
 void	expand_variable_helper(t_env *node, t_list **lst, t_list **tmp)
 {
 	char	**splited;
@@ -117,10 +116,13 @@ void	expand_variable_helper(t_env *node, t_list **lst, t_list **tmp)
 		ft_lstadd_back(lst, ft_lstnew(NULL));
 		(*tmp) = (*tmp)->next;
 	}
+	if (has_space(node->value, 0))
+		return (go_next(lst, tmp, splited_tmp));
 	add_split(lst, tmp, splited);
 	if (has_space(node->value, 1) && !has_space(node->value, 0))
 	{
 		ft_lstadd_back(lst, ft_lstnew(NULL));
 		(*tmp) = (*tmp)->next;
 	}
+	free_twod_array(splited_tmp);
 }
