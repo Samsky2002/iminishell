@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 12:57:55 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/11 11:20:46 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 18:47:41 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void	got_here_doc(t_exec_redirect *redirect, t_minishell *minishell)
 void	here_doc_traverse(t_minishell *minishell)
 {
 	t_fd			*list;
-	t_fd			*tmp;
 	t_exec			*exec;
 	t_exec_redirect	*redirect;
 

@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 17:32:08 by oakerkao          #+#    #+#             */
-/*   Updated: 2022/10/30 11:12:18 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 17:40:34 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,4 @@ t_list	*ft_lstlast(t_list *lst)
 		lst = lst -> next;
 	}
 	return (lst);
-}	
+}

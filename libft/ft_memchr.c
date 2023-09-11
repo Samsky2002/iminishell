@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/06 10:49:27 by oakerkao          #+#    #+#             */
-/*   Updated: 2022/10/31 13:35:22 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 17:40:15 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	while (i < n)
 	{
 		if (str[i] == k && i < n)
-		{		
+		{
 			return (str + i);
 		}
 		i++;

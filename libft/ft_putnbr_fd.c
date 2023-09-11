@@ -6,14 +6,14 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/20 08:31:55 by oakerkao          #+#    #+#             */
-/*   Updated: 2022/10/31 16:02:17 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 17:39:35 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 void	ft_putnbr_fd(int n, int fd)
-{	
+{
 	if (n == -2147483648)
 	{
 		ft_putchar_fd('-', fd);

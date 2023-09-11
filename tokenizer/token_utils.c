@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 14:52:39 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/09 15:09:10 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 18:43:10 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	free_token_list(t_token *token)
 		head = token->next;
 		free(token->token);
 		free(token);
-		token = token;
+		token = head;
 	}
 	token = NULL;
 }

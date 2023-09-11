@@ -6,16 +6,18 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 12:54:59 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/11 13:17:05 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 18:09:58 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	var_init(t_syntax_type *type, t_syntax_type *current)
+void	var_init(t_syntax_type *type, t_syntax_type *current, \
+		t_minishell *minishell, t_token **token)
 {
 	*type = -1;
 	*current = -1;
+	*token = minishell->token;
 }
 
 void	syntax_error(t_minishell *minishell)
@@ -24,8 +26,7 @@ void	syntax_error(t_minishell *minishell)
 	t_syntax_type	type;
 	t_syntax_type	current;
 
-	token = minishell->token;
-	var_init(&type, &current);
+	var_init(&type, &current, minishell, &token);
 	if (!token)
 		return ;
 	if (token->type == T_PIPE)

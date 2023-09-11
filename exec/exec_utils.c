@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 11:07:47 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/11 11:15:52 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 17:55:48 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	add_exec(t_exec **exec, t_exec *new)
 	head->next = new;
 }
 
-void	print_exec(t_exec *exec)
+/*void	print_exec(t_exec *exec)
 {
 	t_exec_redirect	*redirect;
 	char			**args;
@@ -74,7 +74,7 @@ void	print_exec(t_exec *exec)
 		printf("<<<<<<<<<<<<<<END_NODE>>>>>>>>>>>>>\n\n\n");
 		exec = exec->next;
 	}
-}
+}*/
 
 void	exec_redirect_list_clear(t_exec_redirect *redirect)
 {

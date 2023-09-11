@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 09:16:20 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/11 13:21:15 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 18:45:58 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,32 @@ int	check_key(char *str)
 	return (1);
 }
 
+void	value_changer(t_minishell *minishell, char *key, \
+		char *value)
+{
+	t_env	*tmp;
+
+	tmp = get_node(key, minishell->env);
+	if (value)
+	{
+		free(tmp->value);
+		tmp->value = value;
+	}
+	free(value);
+}
+
+void	not_valid_export(t_minishell *minishell)
+{
+	minishell->mini_error = E_NOT_VALID;
+	exec_error_msg(minishell);
+	exec_error(minishell);
+}
+
 void	export(char **argv, t_minishell *minishell)
 {
 	int		i;
-	t_env	*tmp;
+	char	*key;
+	char	*value;
 
 	i = 1;
 	if (!argv[i])
@@ -62,20 +84,16 @@ void	export(char **argv, t_minishell *minishell)
 	}
 	while (argv[i])
 	{
+		key = get_key(argv[i]);
+		value = get_value(argv[i]);
 		if (check_key(argv[i]) == 0)
-		{
-			minishell->mini_error = E_NOT_VALID;
-			exec_error_msg(minishell);
-			exec_error(minishell);
-		}
-		else if (get_node(get_key(argv[i]), minishell->env))
-		{
-			tmp = get_node(get_key(argv[i]), minishell->env);
-			if (get_value(argv[i]))
-				tmp->value = get_value(argv[i]);
-		}
+			not_valid_export(minishell);
+		else if (get_node(key, minishell->env))
+			value_changer(minishell, key, value);
 		else
-			add_node(&minishell->env, new_node(get_key(argv[i]), get_value(argv[i])));
+			add_node(&minishell->env, new_node(get_key(argv[i]), \
+						get_value(argv[i])));
+		free(key);
 		i++;
 	}
 }

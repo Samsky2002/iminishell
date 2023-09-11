@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 17:58:46 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/02 09:52:25 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 17:39:02 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	cpy(char **str, char const *s, char c, int count)
 		}
 		str[i][j] = '\0';
 		i++;
-	}	
+	}
 }
 
 char	**ft_split(char const *s, char c)

@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:41:56 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/11 13:05:51 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 17:57:04 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ int	is_valid(char *str, int sign)
 
 	i = 0;
 	res = 0;
-	while (str[i])	
+	while (str[i])
 	{
-		if (res > res * 10 + (str[i] - 48))	
+		if (res > res * 10 + (str[i] - 48))
 			return (0);
 		res = res * 10 + (str[i] - 48);
 		i++;
 	}
-	return (check_long(res ,sign));
+	return (check_long(res, sign));
 }
 
 int	is_number(char *str)
@@ -45,7 +45,7 @@ int	is_number(char *str)
 	i = 0;
 	while (str[i])
 	{
-		if (!ft_isdigit(str[i]))	
+		if (!ft_isdigit(str[i]))
 			return (0);
 		i++;
 	}
@@ -94,5 +94,3 @@ void	ft_exit(char **args, t_minishell *minishell)
 	}
 	exit(minishell->exit_s);
 }
-// understand this code
-// numeric arg req

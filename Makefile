@@ -2,7 +2,7 @@ CC = cc
 
 NAME = minishell
 
-CFLAGS =  -fsanitize=address -g# -Wall -Werror -Wextra 
+CFLAGS =  -Wall -Werror -Wextra #-fsanitize=address -g  
 
 ENV = env/env.c \
 	  env/get_env.c \
@@ -63,8 +63,7 @@ all : $(NAME)
 
 $(NAME) : $(OBJECTS)
 	make -C libft
-#-L/goinfre/oakerkao/homebrew/opt/readline/lib
-	$(CC) $(INCLUDES)  $(CFLAGS) $(OBJECTS) $(LIBFT) -o $(NAME) -lreadline
+	$(CC) $(INCLUDES) -L/goinfre/oakerkao/homebrew/opt/readline/lib $(CFLAGS) $(OBJECTS) $(LIBFT) -o $(NAME) -lreadline
 
 
 %.o : %.c

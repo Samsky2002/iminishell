@@ -6,13 +6,13 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/23 12:19:12 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/11 13:44:41 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 18:44:50 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "builtin.h"
 
-void	change_pwd(char *path, t_minishell *minishell)
+void	change_pwd(t_minishell *minishell)
 {
 	t_env	*current;
 	char	*str;
@@ -35,7 +35,8 @@ void	change_old_pwd(t_minishell *minishell)
 	old = get_node("OLDPWD", env);
 	current = get_node("PWD", env);
 	if (!old)
-		add_node(&minishell->env, new_node(ft_strdup("OLDPWD"), ft_strdup(current->value)));
+		add_node(&minishell->env, new_node(ft_strdup("OLDPWD"), \
+					ft_strdup(current->value)));
 	if (old && current)
 		old->value = ft_strdup(current->value);
 }
@@ -49,7 +50,7 @@ void	change_to_home(t_minishell *minishell)
 	env = minishell->env;
 	change_old_pwd(minishell);
 	home = get_node("HOME", env);
-	current = get_node("PWD",env);
+	current = get_node("PWD", env);
 	if (home && current)
 	{
 		current->value = ft_strdup(home->value);
@@ -57,7 +58,6 @@ void	change_to_home(t_minishell *minishell)
 	}
 	else
 		minishell->mini_error = HOME_NOT_SET;
-	// check_leaks
 }
 
 void	cd(char *path, t_minishell *minishell)
@@ -73,9 +73,5 @@ void	cd(char *path, t_minishell *minishell)
 		return ;
 	}
 	change_old_pwd(minishell);
-	change_pwd(path, minishell);
+	change_pwd(minishell);
 }
-
-// cd has a problem when you have multiple pipes
-// maybe take the last path
-// home not set

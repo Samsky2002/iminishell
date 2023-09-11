@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 18:32:59 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/11 11:13:36 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 20:50:21 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,15 @@ void	piping(t_minishell *minishell)
 	piping_loop(minishell);
 	while (wait(&status) > 0)
 	{
-		if (WIFEXITED(status))
-			minishell->exit_s = WEXITSTATUS(status);
+		if (globe[1] == 0)
+		{
+			if (WIFEXITED(status))
+				minishell->exit_s = WEXITSTATUS(status);
+		}
+		else
+		{
+			minishell->exit_s = globe[1];
+		}
 	}
 	minishell->here_doc = fd;
 	here_list_clear(minishell->here_doc);

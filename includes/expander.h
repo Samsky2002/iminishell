@@ -6,11 +6,11 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/03 10:55:57 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/11 12:01:24 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 17:31:13 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef EXPANDER_H
+#ifndef EXPANDER_H
 # define EXPANDER_H
 
 void	expanded(void);
@@ -24,4 +24,4 @@ void	add_split(t_list **lst, t_list **tmp, char **splited);
 void	expand_variable_helper(t_env *node, t_list **lst, t_list **tmp);
 void	go_next(t_list **lst, t_list **tmp, char **arr);
 
-# endif
+#endif

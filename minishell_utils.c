@@ -6,19 +6,16 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 15:54:33 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/09 12:56:53 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 17:55:22 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "minishell.h"
+#include "minishell.h"
 
-char	*char_join(char *str, char c)
+char	*char_join_help(char *str, char c)
 {
 	char	*result;
-	int		len;
-	int		i;
 
-	i = 0;
 	if (!str && c == '\0')
 	{
 		result = malloc(1);
@@ -32,6 +29,20 @@ char	*char_join(char *str, char c)
 		result[1] = '\0';
 		return (result);
 	}
+	return (0);
+}
+
+char	*char_join(char *str, char c)
+{
+	char	*result;
+	int		len;
+	int		i;
+	char	*help;
+
+	i = 0;
+	help = char_join_help(str, c);
+	if (help)
+		return (help);
 	if (c == '\0')
 		return (str);
 	len = ft_strlen(str);
@@ -95,17 +106,11 @@ char	**put_twod_array(t_list **lst)
 		tmp = tmp->next;
 	}
 	arr[i] = NULL;
-	i = 0;
-	/*while (arr[i])
-	{
-		printf("%s\n", arr[i]);
-		i++;
-	}*/
 	ft_lstclear(lst, free);
 	return (arr);
 }
 
-void	print_list(t_node *node)
+/*void	print_list(t_node *node)
 {
 	int	i;
 
@@ -148,7 +153,6 @@ void	find_type(int i)
 		printf("-----%s-----\n", "T_NULL");
 }
 
-
 void	print_tokens(t_token *token)
 {
 	while (token)
@@ -163,5 +167,4 @@ void	print_tokens(t_token *token)
 		printf("--------------------END----------------\n");
 		token = token->next;
 	}
-}
-
+}*/

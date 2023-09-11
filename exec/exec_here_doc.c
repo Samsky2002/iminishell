@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 12:34:17 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/11 11:20:43 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 21:47:30 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,6 @@ char	*word_join(char *str, char **arr)
 {
 	char	*result;
 	int		i;
-	int		j;
-	int		k;
-	int		count;
 
 	i = 0;
 	result = NULL;
@@ -96,12 +93,18 @@ void	here_doc(t_fd **list, char *delimiter, t_minishell *minishell)
 	char	*red;
 	int		p[2];
 	char	*end;
+	int		fd;
 
 	end = get_end(delimiter);
+	fd = dup(0);
 	pipe(p);
 	while (1)
 	{
-		red = readline("here_doc>");
+		//signal(SIGQUIT, SIG_IGN);
+		//signal(SIGINT, function);
+		//ft_putstr_fd("here_doc> ", 1);
+		//red = get_next_line(fd);
+		red = readline("here_doc> ");
 		if (!red)
 			break ;
 		if (!ft_strchr(delimiter, '\'') && !ft_strchr(delimiter, '"'))
@@ -112,6 +115,7 @@ void	here_doc(t_fd **list, char *delimiter, t_minishell *minishell)
 		ft_putstr_fd("\n", p[1]);
 		free(red);
 	}
+	close(fd);
 	close(p[1]);
 	add_here_list(list, new_here_list(p[0]));
 }

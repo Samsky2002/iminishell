@@ -6,21 +6,21 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/02 13:00:28 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/11 13:17:51 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 17:34:31 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef MINI_ERRORS
-# define MINI_ERRORS
+#ifndef MINI_ERRORS_H
+# define MINI_ERRORS_H
 
-typedef enum
+typedef enum s_syntax_type
 {
 	S_PIPE,
 	S_WORD,
 	S_REDIRECT
-} t_syntax_type;
+}	t_syntax_type;
 
-typedef enum
+typedef enum s_exec_error
 {
 	SYNTAX_ERROR,
 	CMD_NOT_FOUND,
@@ -35,9 +35,8 @@ typedef enum
 	U_NOT_VALID,
 	E_NOT_VALID,
 	SUCCESS
-} t_exec_error;
+}	t_exec_error;
 
-// syntax_error
 void	syntax_error(t_minishell *minishell);
 void	exec_error(t_minishell *minishell);
 void	exec_error_msg(t_minishell *minishell);

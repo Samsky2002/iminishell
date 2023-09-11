@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/29 15:45:28 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/06/16 19:03:58 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 19:32:09 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdarg.h>
+# define BUFFER_SIZE 5
+
 typedef struct s_list
 {
 	void			*content;
@@ -66,10 +68,10 @@ void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
-
+char	*str_res(char *str1, char *str2);
+char	*str_rem(char *str);
+char	*str_save(char	*str);
 char	*get_next_line(int fd);
-
-//utils
-//char	**put_twod_array(t_list	*lst);
+char	*str_dup(char *str);
 
 #endif

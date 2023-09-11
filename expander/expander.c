@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/10 18:04:54 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/11 10:08:24 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 18:44:10 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	expand_variable(t_list **lst, t_list **tmp, \
 	return (len);
 }
 
-int	expand_quoted_variable(t_list **lst, t_list **tmp, \
+int	expand_quoted_variable(t_list **tmp, \
 		char *str, t_minishell *minishell)
 {
 	char	*var;
@@ -114,7 +114,7 @@ char	**expander(char *str, t_minishell *minishell)
 		else if (str[i] == '$' && quotes == 0)
 			i += expand_variable(&lst, &tmp, str + i, minishell);
 		else if (str[i] == '$' && quotes == '"')
-			i += expand_quoted_variable(&lst, &tmp, str + i, minishell);
+			i += expand_quoted_variable(&tmp, str + i, minishell);
 		else
 			tmp->content = char_join(tmp->content, str[i]);
 		if (!str[i])

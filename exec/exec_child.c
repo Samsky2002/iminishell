@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 12:30:53 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/11 11:17:09 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 18:47:54 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ void	exec_child(t_minishell *minishell, t_exec *exec)
 {
 	t_exec_redirect	*redirect_list;
 	char			**args;
-	char			*cmd;
 
 	redirect_list = exec->redirect;
 	args = exec->args;
@@ -105,6 +104,9 @@ void	exec_child(t_minishell *minishell, t_exec *exec)
 			exec_error_msg(minishell);
 		}
 	}
+	node_list_clear(minishell->node);
+	exec_list_clear(minishell->exec);
+	env_list_clear(minishell->env);
 	exit(minishell->exit_s);
 }
 // exec_args pointer gets lost

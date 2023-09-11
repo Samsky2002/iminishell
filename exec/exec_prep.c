@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 10:54:52 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/11 11:30:27 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/11 18:46:41 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,35 @@ char	**single_to_double(char *str)
 {
 	char	**arr;
 
-	arr = malloc(2 * sizeof(char *));	
+	arr = malloc(2 * sizeof(char *));
 	arr[0] = ft_strdup(str);
 	arr[1] = NULL;
 	return (arr);
 }
 
-t_exec_redirect	*node_redirect(t_node *node, int i, t_minishell *minishell)
+char	**not_here_doc(t_minishell *minishell, t_list **lst, t_node *node)
+{
+	char	**expanded;
+	int		i;
+	char	**arr_red;	
+
+	i = 0;
+	arr_red = NULL;
+	expanded = expander(node->redirect->path, minishell);
+	while (expanded[i])
+	{
+		ft_lstadd_back(lst, ft_lstnew(expanded[i]));
+		i++;
+	}
+	free(expanded);
+	arr_red = put_twod_array(lst);
+	ft_lstclear(lst, free);
+	return (arr_red);
+}
+
+t_exec_redirect	*node_redirect(t_node *node, t_minishell *minishell)
 {
 	char			**arr_red;
-	char			**expanded;
 	t_list			*lst;
 	t_exec_redirect	*redirect;
 	t_redirect		*tmp;
@@ -63,16 +82,8 @@ t_exec_redirect	*node_redirect(t_node *node, int i, t_minishell *minishell)
 	while (node->redirect)
 	{
 		lst = NULL;
-		i = -1;
 		if (node->redirect->type != T_HERE_DOC)
-		{
-			expanded = expander(node->redirect->path, minishell);
-			while (expanded[++i])
-				ft_lstadd_back(&lst, ft_lstnew(expanded[i]));
-			free(expanded);
-			arr_red = put_twod_array(&lst);
-			ft_lstclear(&lst, free);
-		}
+			arr_red = not_here_doc(minishell, &lst, node);
 		else
 			arr_red = single_to_double(node->redirect->path);
 		add_exec_redirect(&redirect, \
@@ -89,7 +100,6 @@ t_exec	*exec_prep(t_minishell *minishell)
 	t_exec_redirect	*redirect;
 	t_node			*node;
 	char			**arr_arg;
-	int				i;
 
 	redirect = NULL;
 	exec = NULL;
@@ -97,7 +107,7 @@ t_exec	*exec_prep(t_minishell *minishell)
 	while (node)
 	{
 		arr_arg = node_args(node, minishell);
-		redirect = node_redirect(node, i, minishell);
+		redirect = node_redirect(node, minishell);
 		add_exec(&exec, new_exec(arr_arg, redirect));
 		node = node->next;
 	}
