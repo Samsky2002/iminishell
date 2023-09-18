@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 09:01:26 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/06/17 21:32:31 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/14 10:47:12 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,32 +17,45 @@ int	check_flag(char *str)
 	int	i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	if (str[0] == '-')
 		i++;
 	else
-		return (1);
+		return (0);
 	while (str[i])
 	{
 		if (str[i] != 'n')
-			return (1);
+			return (0);
 		i++;
 	}
-	return (0);
+	return (1);
+}
+
+void	echo_help(int flag)
+{
+	if (flag == 0)
+		printf("\n");
 }
 
 void	echo(char **cmd)
 {
 	int	i;
 	int	flag;
+	int	other;
 
 	i = 1;
-	flag = 0;
-	while (cmd && cmd[i])
+	flag = check_flag(cmd[1]);
+	if (flag == 1)
 	{
-		if (check_flag(cmd[i]) == 1)
-			break ;
-		flag = 1;
-		i++;
+		while (cmd && cmd[i])
+		{
+			other = check_flag(cmd[i]);
+			if (other == 1)
+				i++;
+			else
+				break ;
+		}
 	}
 	while (cmd && cmd[i])
 	{
@@ -51,6 +64,5 @@ void	echo(char **cmd)
 			printf(" ");
 		i++;
 	}
-	if (flag == 0)
-		printf("\n");
+	echo_help(flag);
 }

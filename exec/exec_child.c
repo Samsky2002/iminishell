@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 12:30:53 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/11 18:47:54 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/15 11:53:59 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ void	child_builtins(char **arr, t_minishell *minishell)
 		pwd();
 	else if (strcmp(arr[0], "env") == 0)
 		env(minishell);
-	else if (strcmp(arr[0], "export") == 0 && \
-			exec_list_count(minishell->exec) > 1)
+	else if (strcmp(arr[0], "export") == 0 && !arr[1])
 		export(arr, minishell);
 	if (strcmp(arr[0], "export"))
 		exec_error(minishell);
@@ -69,9 +68,9 @@ void	parent_builtins(char **arr, t_minishell *minishell)
 {
 	if (!arr || !*arr)
 		return ;
-	else if (strcmp(arr[0], "cd") == 0)
+	if (strcmp(arr[0], "cd") == 0)
 		cd(arr[1], minishell);
-	else if (strcmp(arr[0], "export") == 0)
+	else if (strcmp(arr[0], "export") == 0 && arr[1])
 		export(arr, minishell);
 	else if (strcmp(arr[0], "unset") == 0)
 		unset(arr, minishell);
@@ -88,6 +87,7 @@ void	exec_child(t_minishell *minishell, t_exec *exec)
 {
 	t_exec_redirect	*redirect_list;
 	char			**args;
+	char			*path;
 
 	redirect_list = exec->redirect;
 	args = exec->args;
@@ -98,17 +98,13 @@ void	exec_child(t_minishell *minishell, t_exec *exec)
 			child_builtins(args, minishell);
 		else
 		{
-			execve(path_getter(args[0], minishell), \
-					args, minishell->enviro);
+			path = path_getter(args[0], minishell);
+			if (path)
+				exec_child_helper(args, minishell, path);
 			exec_error(minishell);
 			exec_error_msg(minishell);
 		}
 	}
-	node_list_clear(minishell->node);
-	exec_list_clear(minishell->exec);
-	env_list_clear(minishell->env);
+	exec_child_clear(minishell);
 	exit(minishell->exit_s);
 }
-// exec_args pointer gets lost
-// when i don't protect the if condition if 
-// there is an error with the file he enters the execve

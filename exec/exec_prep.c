@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 10:54:52 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/11 18:46:41 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/14 16:25:37 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,15 @@
 
 char	**node_args(t_node *node, t_minishell *minishell)
 {
-	char	**expanded;
 	char	**arr_arg;
 	t_list	*lst;
-	int		i;
 	t_arg	*tmp;
 
 	lst = NULL;
 	tmp = node->args;
 	while (node->args)
 	{
-		i = 0;
-		expanded = expander(node->args->arg, minishell);
-		while (expanded[i])
-		{
-			ft_lstadd_back(&lst, ft_lstnew(expanded[i]));
-			i++;
-		}
-		free(expanded);
+		expander(&lst, node->args->arg, minishell);
 		node->args = node->args->next;
 	}
 	arr_arg = put_twod_array(&lst);
@@ -52,19 +43,12 @@ char	**single_to_double(char *str)
 
 char	**not_here_doc(t_minishell *minishell, t_list **lst, t_node *node)
 {
-	char	**expanded;
 	int		i;
 	char	**arr_red;	
 
 	i = 0;
 	arr_red = NULL;
-	expanded = expander(node->redirect->path, minishell);
-	while (expanded[i])
-	{
-		ft_lstadd_back(lst, ft_lstnew(expanded[i]));
-		i++;
-	}
-	free(expanded);
+	expander(lst, node->redirect->path, minishell);
 	arr_red = put_twod_array(lst);
 	ft_lstclear(lst, free);
 	return (arr_red);

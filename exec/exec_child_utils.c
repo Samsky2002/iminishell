@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_child_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: oakerkao <oakerkao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 17:44:26 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/11 12:09:24 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/13 11:22:27 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,3 @@ char	*path_getter(char *cmd, t_minishell *minishell)
 	free_twod_array(split);
 	return (0);
 }
-
-// you can check if no such file for program with checking for /
-// you have to check the program only if he has /

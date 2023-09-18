@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 09:56:37 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/11 17:58:56 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/14 17:33:52 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,18 @@ void	remove_node(char *key, t_minishell *minishell)
 	t_env	*current;
 	t_env	*prev;
 
-	prev = NULL;
 	current = minishell->env;
+	prev = NULL;
 	while (current)
 	{
 		if (ft_strcmp(current->key, key) == 0 && ft_strcmp(current->key, "_"))
 		{
-			if (prev)
-				prev->next = current->next;
+			if (prev == NULL)
+				minishell->env = minishell->env->next;
 			else
-				minishell->env = current->next;
+				prev->next = current->next;
+			free(current->key);
+			free(current->value);
 			free(current);
 			break ;
 		}

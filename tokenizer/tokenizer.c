@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 12:53:42 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/09 13:14:08 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/18 10:12:10 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_token	*tokenizer(char *line, t_minishell *minishell)
 			line += single_char_special_token(&token, T_OUT);
 		else if ((ft_strncmp(line, "<", 1) == 0))
 			line += single_char_special_token(&token, T_IN);
-		else if (ft_strncmp(line, " ", 1) == 0)
+		else if (ft_strncmp(line, " ", 1) == 0 || ft_strncmp(line, "\t", 1) == 0)
 			line += space_token(line);
 		else
 			line += word_token(&token, line, minishell);

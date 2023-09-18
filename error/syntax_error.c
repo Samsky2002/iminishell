@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 12:54:59 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/11 18:09:58 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/13 11:28:42 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	exec_error_msg(t_minishell *minishell)
 		ft_putstr_fd("minishell: No such file or directory\n", 2);
 	else if (minishell->mini_error == PERMISSION_DENIED_PROG \
 			|| minishell->mini_error == PERMISSION_DENIED_FILE)
-		ft_putstr_fd("minishell: foo: Permission denied\n", 2);
+		ft_putstr_fd("minishell: Permission denied\n", 2);
 	else if (minishell->mini_error == SYNTAX_ERROR)
 		ft_putstr_fd("minishell: syntax error\n", 2);
 	else if (minishell->mini_error == AMBIGUOUS)

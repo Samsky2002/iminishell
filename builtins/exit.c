@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 10:41:56 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/11 17:57:04 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/16 10:22:46 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	check_exit_arg(char *str, t_minishell *minishell)
 	if (is_number(str + i) == 0 || is_valid(str + i, sign) == 0)
 	{
 		minishell->mini_error = NUMERIC_ARG_REQ;
+		exec_child_clear(minishell);
 		exec_error_msg(minishell);
 		exec_error(minishell);
 		exit(minishell->exit_s);
@@ -83,6 +84,7 @@ void	ft_exit(char **args, t_minishell *minishell)
 		if (check_exit_arg(args[1], minishell) && !args[2])
 		{
 			exit_value = check_exit_arg(args[1], minishell);
+			exec_child_clear(minishell);
 			exit(exit_value);
 		}
 		if (args[2])
@@ -92,5 +94,6 @@ void	ft_exit(char **args, t_minishell *minishell)
 			return ;
 		}
 	}
+	exec_child_clear(minishell);
 	exit(minishell->exit_s);
 }

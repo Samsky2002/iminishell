@@ -6,11 +6,22 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/05 18:32:59 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/11 20:50:21 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/15 12:31:41 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	exec_child_helper(char	**args, t_minishell *minishell, char *path)
+{
+	execve(path, args, minishell->enviro);
+	if (minishell->mini_error == SUCCESS)
+	{
+		perror("minishell");
+		exec_child_clear(minishell);
+		exit(1);
+	}
+}
 
 void	exec_child_prep(t_exec *exec, t_minishell *minishell, \
 		int prev_pipe_read, int pipes[2])
@@ -78,24 +89,14 @@ void	piping(t_minishell *minishell)
 	piping_loop(minishell);
 	while (wait(&status) > 0)
 	{
-		if (globe[1] == 0)
+		if (g_sig[1] == 0)
 		{
 			if (WIFEXITED(status))
 				minishell->exit_s = WEXITSTATUS(status);
 		}
 		else
-		{
-			minishell->exit_s = globe[1];
-		}
+			minishell->exit_s = g_sig[1];
 	}
 	minishell->here_doc = fd;
 	here_list_clear(minishell->here_doc);
 }
-/*here_doc_gets_incrementes in the child process
-/ be careful what happens in child doens't affect parent*/
-/*
- * free pid
- * free pipes
- * free exec list
- * free here_doc linked list
- */

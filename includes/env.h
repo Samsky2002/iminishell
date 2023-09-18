@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 10:41:01 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/11 17:28:52 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/13 11:15:00 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ typedef struct s_env
 
 t_env	*new_node(char *key, char *value);
 void	add_node(t_env **list, t_env *new);
-void	print_env_list(void);
-int		env_list_size(t_env *list);
 char	*get_key(char *str);
 char	*get_value(char *str);
 t_env	*get_env_list(char **enviro);

@@ -2,7 +2,7 @@ CC = cc
 
 NAME = minishell
 
-CFLAGS =  -Wall -Werror -Wextra #-fsanitize=address -g  
+CFLAGS =  -Wall -Werror -Wextra
 
 ENV = env/env.c \
 	  env/get_env.c \
@@ -10,8 +10,6 @@ ENV = env/env.c \
 
 TOKENIZER = tokenizer/tokenizer.c \
 			tokenizer/token_utils.c \
-			#tokenizer/tokening.c \
-			#tokenizer/get_token.c
 
 BUILTINS = builtins/echo.c \
 		   builtins/exit.c \
@@ -28,7 +26,8 @@ PARSER = parser/parser.c \
 
 EXPANDER = expander/expander.c \
 		   expander/expander_utils.c \
-		   expander/expander_second_utils.c
+		   expander/expand_normal.c \
+		   expander/expand_quotes.c \
 
 EXEC = exec/exec.c \
 	   exec/exec_utils.c \
@@ -39,6 +38,7 @@ EXEC = exec/exec.c \
 	   exec/piping.c \
 	   exec/exec_redirect.c \
 	   exec/exec_child_utils.c \
+	   exec/here_doc_expansion.c \
 	   exec/exec_child.c 
 
 ERROR = error/syntax_error.c
@@ -58,6 +58,7 @@ LIBFT = libft/libft.a
 INCLUDES = -Iincludes/
 
 OBJECTS = $(CFILES:.c=.o)
+
 
 all : $(NAME)
 

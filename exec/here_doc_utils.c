@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 12:57:55 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/11 18:47:41 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/15 10:58:27 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	here_list_clear(t_fd *list)
 	while (head)
 	{
 		head = list->next;
-		free(list);
+		if (list)
+			free(list);
 		list = head;
 	}
 }

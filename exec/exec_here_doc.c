@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 12:34:17 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/11 21:47:30 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/16 13:36:58 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,48 +30,53 @@ int	skip_word(char *str)
 	return (i);
 }
 
-char	*word_join(char *str, char **arr)
+int	write_word(char *str, int fd, t_minishell *minishell)
 {
-	char	*result;
 	int		i;
+	char	*var_name;
+	char	*tmp;
+	t_list	*lst;
+	t_list	*temp;
 
-	i = 0;
-	result = NULL;
-	if (str)
-		result = ft_strdup(str);
-	while (arr && arr[i])
+	lst = NULL;
+	var_name = get_var_name(str + 1);
+	tmp = ft_strjoin("$", var_name);
+	here_doc_expansion(&lst, minishell, tmp);
+	temp = lst;
+	while (temp)
 	{
-		if (result)
-			result = ft_strjoin(result, arr[i]);
-		else
-			result = ft_strdup(arr[i]);
-		i++;
+		ft_putstr_fd(temp->content, fd);
+		temp = temp->next;
 	}
-	return (result);
+	i = ft_strlen(var_name);
+	free(var_name);
+	free(tmp);
+	ft_lstclear(&lst, free);
+	return (i);
 }
 
-char	*expand_here_doc(char *line, t_minishell *minishell)
+void	expand_here_doc(char *line, t_minishell *minishell, int fd, char *delim)
 {
-	char	*result;	
-	char	**arr;
 	int		i;
+	char	*tmp;
+	int		expand;
 
 	i = 0;
-	result = NULL;
+	expand = 0;
+	if (!ft_strchr(delim, '"') && !ft_strchr(delim, '\''))
+		expand = 1;
+	tmp = ft_strtrim(line, "\n");
+	line = tmp;
 	while (line[i])
 	{
-		if (line[i] != ' ')
-		{
-			arr = expander(line + i, minishell);
-			result = word_join(result, arr);
-			i += skip_word(line + i);
-			continue ;
-		}
-		else if (line[i] == ' ')
-			result = char_join(result, line[i]);
+		if (line[i] == '$' && expand)
+			i += write_word(line + i, fd, minishell);
+		else
+			ft_putchar_fd(line[i], fd);
 		i++;
 	}
-	return (result);
+	free(tmp);
+	ft_putstr_fd("\n", fd);
 }
 
 char	*get_end(char *delimiter)
@@ -93,29 +98,26 @@ void	here_doc(t_fd **list, char *delimiter, t_minishell *minishell)
 	char	*red;
 	int		p[2];
 	char	*end;
-	int		fd;
 
+	g_sig[3] = dup(0);
 	end = get_end(delimiter);
-	fd = dup(0);
 	pipe(p);
+	g_sig[2] = 1;
 	while (1)
 	{
-		//signal(SIGQUIT, SIG_IGN);
-		//signal(SIGINT, function);
-		//ft_putstr_fd("here_doc> ", 1);
-		//red = get_next_line(fd);
-		red = readline("here_doc> ");
+		ft_putstr_fd("here_doc> ", 1);
+		red = get_next_line(g_sig[3]);
 		if (!red)
 			break ;
-		if (!ft_strchr(delimiter, '\'') && !ft_strchr(delimiter, '"'))
-			red = expand_here_doc(red, minishell);
-		if (ft_strcmp(red, end) == 0)
+		if (ft_strncmp(red, end, ft_strlen(end)) == 0)
 			break ;
-		ft_putstr_fd(red, p[1]);
-		ft_putstr_fd("\n", p[1]);
+		expand_here_doc(red, minishell, p[1], delimiter);
 		free(red);
 	}
-	close(fd);
+	if (g_sig[4])
+		minishell->exit_s = g_sig[4];
+	free(end);
+	g_sig[2] = 0;
 	close(p[1]);
 	add_here_list(list, new_here_list(p[0]));
 }

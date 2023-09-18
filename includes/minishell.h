@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: oakerkao <oakerkao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 07:49:04 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/11 20:36:05 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/14 12:48:15 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <readline/history.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+# include <signal.h>
 # include "../libft/libft.h"
 # include "env.h"
 # include "builtin.h"
@@ -27,11 +28,11 @@
 # include "exec.h"
 # include "mini_errors.h"
 # include "expander.h"
-# include <signal.h>
 
 typedef struct s_env	t_env;
 typedef struct s_token	t_token;
 typedef struct s_node	t_node;
+int						g_sig[5];
 
 typedef struct s_minishell
 {
@@ -45,7 +46,7 @@ typedef struct s_minishell
 	int				exit_s;
 }	t_minishell;
 
-char	**expander(char *str, t_minishell *minishell);
+void	expander(t_list **lst, char *str, t_minishell *minishell);
 void	find_type(int i);
 char	*char_join(char *str, char c);
 char	**put_twod_array(t_list **lst);
@@ -55,6 +56,8 @@ void	free_twod_array(char **arr);
 void	rl_replace_line(const char *text, int clear_undo);
 void	function(int sig);
 
-int	globe[3];
+// to delete
+void	print_exec(t_exec *exec);
+void	print_list(t_node *node);
 
 #endif

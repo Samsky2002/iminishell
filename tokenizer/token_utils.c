@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/02 14:52:39 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/11 18:43:10 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/14 11:53:10 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,6 @@ void	add_token(t_token **list, t_token *new)
 	head->next = new;
 }
 
-void	token_del(t_token *token)
-{
-	if (!token)
-		return ;
-	free(token->token);
-	free(token);
-}
-
 void	token_list_clear(t_token *token)
 {
 	t_token	*head;
@@ -56,24 +48,8 @@ void	token_list_clear(t_token *token)
 	while (head)
 	{
 		head = token->next;
-		token_del(token);
-		token = head;
-	}
-}
-
-void	free_token_list(t_token *token)
-{
-	t_token	*head;
-
-	if (token)
-		return ;
-	head = token;
-	while (head)
-	{
-		head = token->next;
 		free(token->token);
 		free(token);
 		token = head;
 	}
-	token = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 11:08:00 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/11 11:19:00 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/14 18:40:24 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,11 @@ void	add_exec_redirect(t_exec_redirect **redirect, t_exec_redirect *new)
 	while (head->next)
 		head = head->next;
 	head->next = new;
+}
+
+void	exec_child_clear(t_minishell *minishell)
+{
+	node_list_clear(minishell->node);
+	exec_list_clear(minishell->exec);
+	env_list_clear(minishell->env);
 }

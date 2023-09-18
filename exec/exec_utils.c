@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oakerkao <oakerkao@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: oakerkao <oakerkao@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 11:07:47 by oakerkao          #+#    #+#             */
-/*   Updated: 2023/09/11 17:55:48 by oakerkao         ###   ########.fr       */
+/*   Updated: 2023/09/13 11:09:16 by oakerkao         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,44 +37,6 @@ void	add_exec(t_exec **exec, t_exec *new)
 		head = head->next;
 	head->next = new;
 }
-
-/*void	print_exec(t_exec *exec)
-{
-	t_exec_redirect	*redirect;
-	char			**args;
-	int				i;
-
-	while (exec)
-	{
-		args = exec->args;
-		redirect = exec->redirect;
-		printf("<<<<<<<<<<<<<NODE>>>>>>>>>>>>>>>>\n");
-		printf("-----------ARGS------------\n");
-		i = 0;
-		while (args[i])
-		{
-			printf("%s\n", args[i]);
-			i++;
-		}
-		printf("-----------ARGS------------\n");
-		printf("-----------REDIRECT------------\n");
-		while (redirect)
-		{
-			i = 0;
-			while (redirect->list[i])
-			{
-				printf("TYPE---->  ");
-				printf("%s\n", redirect->list[i]);
-				find_type(redirect->type);
-				i++;
-			}
-			redirect = redirect->next;
-		}
-		printf("-----------REDIRECT------------\n");
-		printf("<<<<<<<<<<<<<<END_NODE>>>>>>>>>>>>>\n\n\n");
-		exec = exec->next;
-	}
-}*/
 
 void	exec_redirect_list_clear(t_exec_redirect *redirect)
 {
